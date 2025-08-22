@@ -1,0 +1,81 @@
+# Dependencias
+node_modules
+
+# Build outputs
+dist
+out-tsc
+tmp
+
+# Archivos de Angular
+.angular
+
+# Archivos de VSCode
+.vscode
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ambiente
+.env
+.env..local
+
+# IDEs
+.idea
+
+
+
+## Archivos de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Archivos de dependencias y cache
+*.log
+*.vspscc
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.vsidx
+
+## Archivos de usuario de Visual Studio Code
+.vscode/
+
+## Archivos de sistema
+.DS_Store
+Thumbs.db
+
+## Archivos de publicación
+publish/
