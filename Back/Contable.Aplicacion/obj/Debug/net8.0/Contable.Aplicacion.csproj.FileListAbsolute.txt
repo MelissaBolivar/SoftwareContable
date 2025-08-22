@@ -1,0 +1,11 @@
+C:\Software\Back\Contable.Aplicacion\bin\Debug\net8.0\Contable.Aplicacion.deps.json
+C:\Software\Back\Contable.Aplicacion\bin\Debug\net8.0\Contable.Aplicacion.dll
+C:\Software\Back\Contable.Aplicacion\bin\Debug\net8.0\Contable.Aplicacion.pdb
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.AssemblyInfoInputs.cache
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.AssemblyInfo.cs
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.csproj.CoreCompileInputs.cache
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.dll
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\refint\Contable.Aplicacion.dll
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\Contable.Aplicacion.pdb
+C:\Software\Back\Contable.Aplicacion\obj\Debug\net8.0\ref\Contable.Aplicacion.dll
