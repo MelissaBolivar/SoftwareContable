@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class Inventario
+    public class Inventario
     {
-        public int IdInventario;
-        public int IdItem;
-        public required int UnidadesInventario;
-        public required int PrecioVentaInventario;
-        public required int PrecioCompraInventario;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
+        [Key]
+        public int InventarioId  { get; set; }
+        public int IdItem  { get; set; }
+        public required int UnidadesInventario  { get; set; }
+        public required int PrecioVentaInventario  { get; set; }
+        public required int PrecioCompraInventario  { get; set; }
+        public int IdRol  { get; set; }
+        public required DateTime FechaRegistro  { get; set; }
+        public required string Estado { get; set; }
 
-
-
+        // 🔹 Navegación
+        public Item? Item { get; set; }
+        public Rol? Rol { get; set; }
     }
 }

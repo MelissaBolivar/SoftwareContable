@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class Usuario
+    public class Usuario
     {
-        public int IdUsuario;
-        public required string IdTipoIdentificacion;
-        public int NumeroIdUsuario;
-        public required string NombreUsuario;
-        public required string ApellidoUsuario;
-        public required string DireccionUsuario;
-        public required string TelefonoUsuario;
-        public required string CorreoElectronicoUsuario;
-        public required string ContrasenaUsuario;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
+        [Key]
+        public int UsuarioId  { get; set; }
+        public required int IdTipoIdentificacion  { get; set; }
+        public int NumeroIdUsuario  { get; set; }
+        public required string NombreUsuario  { get; set; }
+        public required string ApellidoUsuario  { get; set; }
+        public required string DireccionUsuario  { get; set; }
+        public required string TelefonoUsuario  { get; set; }
+        public required string CorreoElectronicoUsuario  { get; set; }
+        public required string ContrasenaUsuario  { get; set; }
+        public int IdRol  { get; set; }
+        public required DateTime FechaRegistro  { get; set; }
+        public required string Estado { get; set; }
 
-
-
+        public TipoDeIdentificacion? TipoIdentificacion { get; set; }
+        public Rol? Rol { get; set; }
     }
 }

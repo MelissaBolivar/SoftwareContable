@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class Proveedores
+    public class Proveedores
     {
+        [Key]
+        public int ProveedorId  { get; set; }
+        public required string IdTipoIdentificacion  { get; set; }
+        public int NumeroIdProveedor  { get; set; }
+        public required string NombreProveedor  { get; set; }
+        public required string ApellidoProveedor  { get; set; }
+        public required string DireccionProveedor  { get; set; }
+        public required string TelefonoProveedor  { get; set; }
+        public required string CorreoElectronicoProveedor  { get; set; }
+        public int IdRol  { get; set; }
+        public required DateTime FechaRegistro  { get; set; }
+        public required string Estado { get; set; }
 
-        public int IdProveedor;
-        public required string IdTipoIdentificacion;
-        public int NumeroIdProveedor;
-        public required string NombreProveedor;
-        public required string ApellidoProveedor;
-        public required string DireccionProveedor;
-        public required string TelefonoProveedor;
-        public required string CorreoElectronicoProveedor;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
-
+        public ICollection<Gastos>? Gastos { get; set; }
+        public ICollection<Costos>? Costos { get; set; }
+        public ICollection<Compras>? Compras { get; set; }
 
     }
 }

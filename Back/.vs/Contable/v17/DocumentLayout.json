@@ -1,12 +1,156 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Software\\SoftwareContable\\Back\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\rolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\rolcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entidades\\rol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entidades\\rol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entidades\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entidades\\clientes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entidades\\anticipos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entidades\\anticipos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|c:\\software\\softwarecontable\\back\\contable.infraestructura\\contexto\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|solutionrelative:contable.infraestructura\\contexto\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entidades\\tipodepago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entidades\\tipodepago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entidades\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entidades\\ventas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RolController.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\RolController.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Controllers\\RolController.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\RolController.cs",
+              "RelativeToolTip": "Contable.Api\\Controllers\\RolController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAUwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:19:25.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Rol.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Rol.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entidades\\Rol.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Rol.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entidades\\Rol.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAzwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:19:13.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Program.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Program.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Program.cs",
+              "RelativeToolTip": "Contable.Api\\Program.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAhwC8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:18:36.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TipoDePago.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\TipoDePago.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entidades\\TipoDePago.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\TipoDePago.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entidades\\TipoDePago.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:12:13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PersistenceContext.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Infraestructura\\Contexto\\PersistenceContext.cs",
+              "RelativeDocumentMoniker": "Contable.Infraestructura\\Contexto\\PersistenceContext.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Infraestructura\\Contexto\\PersistenceContext.cs",
+              "RelativeToolTip": "Contable.Infraestructura\\Contexto\\PersistenceContext.cs",
+              "ViewState": "AgIAAMEAAAAAAAAAAAAMwLsAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:11:33.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Anticipos.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Anticipos.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entidades\\Anticipos.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Anticipos.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entidades\\Anticipos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:10:45.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Clientes.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Clientes.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entidades\\Clientes.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Clientes.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entidades\\Clientes.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAA7wBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:10:32.236Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Ventas.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Ventas.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entidades\\Ventas.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entidades\\Ventas.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entidades\\Ventas.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T17:10:23.235Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

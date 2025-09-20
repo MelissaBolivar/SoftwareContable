@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fc+X6r9W+Fw=",
+  "dgSpecHash": "yUt431DsAys=",
   "success": true,
-  "projectFilePath": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Dominio.csproj",
+  "projectFilePath": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

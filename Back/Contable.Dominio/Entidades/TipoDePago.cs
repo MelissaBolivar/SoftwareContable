@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class TipoDePago
+    public class TipoDePago
     {
-        public int IdTipoPago;
-        public required string NombreTipoPago;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
+        [Key]
+        public int TipoPagoId  { get; set; }
+        public required string NombreTipoPago  { get; set; }
+        public int IdRol  { get; set; }
+        public required DateTime FechaRegistro  { get; set; }
+        public required string Estado { get; set; }
+        public ICollection<Gastos>? Gastos { get; set; }
+        public ICollection<Costos>? Costos { get; set; }
+        public ICollection<Compras>? Compras { get; set; }
+        public ICollection<Ventas>? Ventas { get; set; }
 
     }
 }

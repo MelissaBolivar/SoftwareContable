@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Aplicacion", "Contable.Aplicacion\Contable.Aplicacion.csproj", "{058A190B-4AA0-464E-80E8-8E6219DEEB36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Application", "Contable.Aplicacion\Contable.Application.csproj", "{058A190B-4AA0-464E-80E8-8E6219DEEB36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Dominio", "Contable.Dominio\Contable.Dominio.csproj", "{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Domain", "Contable.Dominio\Contable.Domain.csproj", "{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Infraestructura", "Contable.Infraestructura\Contable.Infraestructura.csproj", "{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Infrastructure", "Contable.Infraestructura\Contable.Infrastructure.csproj", "{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Api", "Contable.Api\Contable.Api.csproj", "{A1D68AEC-E688-4278-90DC-A00164ACA5A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contable.Domain.Tests", "Contable.Domain.Tests\Contable.Domain.Tests.csproj", "{D6D0D956-DEA1-4670-9D24-1D0EBF820507}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A1D68AEC-E688-4278-90DC-A00164ACA5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1D68AEC-E688-4278-90DC-A00164ACA5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1D68AEC-E688-4278-90DC-A00164ACA5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D0D956-DEA1-4670-9D24-1D0EBF820507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D0D956-DEA1-4670-9D24-1D0EBF820507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D0D956-DEA1-4670-9D24-1D0EBF820507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D0D956-DEA1-4670-9D24-1D0EBF820507}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Contable.Aplicacion.csproj",
-      "projectName": "Contable.Aplicacion",
-      "projectPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Contable.Aplicacion.csproj",
+      "projectUniqueName": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Contable.Application.csproj",
+      "projectName": "Contable.Application",
+      "projectPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Contable.Application.csproj",
       "packagesPath": "C:\\Users\\angie\\.nuget\\packages\\",
       "outputPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\obj\\",
       "projectStyle": "PackageReference",

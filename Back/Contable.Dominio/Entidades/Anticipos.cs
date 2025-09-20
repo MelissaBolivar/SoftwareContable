@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class Anticipos
+    public class Anticipos
     {
+        [Key]
+        public int AnticiposId { get; set; }
+        public int IdCliente { get; set; }
 
-        public int IdAnticipos;
-        public required string PorcentajeAnticipo;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
+        public required string PorcentajeAnticipo { get; set; }
+        public int IdRol { get; set; }
+        public required DateTime FechaRegistro { get; set; }
+        public required string Estado { get; set; }
 
-
+        public Clientes? Cliente { get; set; }
+        public Rol? Rol { get; set; }
+        public ICollection<Ventas>? Ventas { get; set; }
 
     }
 }

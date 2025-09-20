@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "Contable.Domain.Tests/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Contable.Domain.Tests.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Contable.Domain.Tests.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Contable.Domain.Tests/1.0.0": {
+      "type": "project",
+      "path": "../Contable.Domain.Tests/Contable.Domain.Tests.csproj",
+      "msbuildProject": "../Contable.Domain.Tests/Contable.Domain.Tests.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "Contable.Domain.Tests >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\angie\\.nuget\\packages\\": {},
@@ -14,9 +33,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Dominio.csproj",
-      "projectName": "Contable.Dominio",
-      "projectPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Dominio.csproj",
+      "projectUniqueName": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Domain.csproj",
+      "projectName": "Contable.Domain",
+      "projectPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Contable.Domain.csproj",
       "packagesPath": "C:\\Users\\angie\\.nuget\\packages\\",
       "outputPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\obj\\",
       "projectStyle": "PackageReference",
@@ -38,7 +57,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Software\\SoftwareContable\\Back\\Contable.Domain.Tests\\Contable.Domain.Tests.csproj": {
+              "projectPath": "C:\\Software\\SoftwareContable\\Back\\Contable.Domain.Tests\\Contable.Domain.Tests.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

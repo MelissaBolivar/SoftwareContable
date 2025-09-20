@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contable.Dominio.Entidades
+namespace Contable.Domain.Entidades
 {
-    internal class Compras
+    public class Compras
     {
-        public int IdCompras;
-        public int IdProveedor;
-        public int IdTipoPago;
-        public required int UnidadesCompra;
-        public required int PrecioCompra;
-        public required DateTime FechaCompra;
-        public int IdRol;
-        public required DateTime FechaRegistro;
-        public required string Estado;
+        [Key]
+        public int ComprasId  { get; set; }
+        public int IdProveedor  { get; set; }
+        public int IdTipoPago  { get; set; }
+        public required int UnidadesCompra  { get; set; }
+        public required int PrecioCompra  { get; set; }
+        public required DateTime FechaCompra  { get; set; }
+        public int IdRol  { get; set; }
+        public required DateTime FechaRegistro  { get; set; }
+        public required string Estado { get; set; }
 
-
+        public Proveedores? Proveedor { get; set; }
+        public TipoDePago? TipoDePago { get; set; }
+        public Rol? Rol { get; set; }
     }
 }
