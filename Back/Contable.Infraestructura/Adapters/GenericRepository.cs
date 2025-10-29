@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Contable.Domain.Ports;
-using Contable.Infrastructure.Contexto;
+using Contable.Infrastructure.Context;
 
 namespace Contable.Infrastructure.Adapters
 {

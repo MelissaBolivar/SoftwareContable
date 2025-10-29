@@ -1,0 +1,191 @@
+<!-- Mueve el emoji-wall al nivel superior para evitar que lo recorten contenedores con overflow -->
+<div class="emoji-wall" aria-hidden="true">
+  <span>💵</span>
+  <span>🧾</span>
+  <span>📈</span>
+  <span>💼</span>
+  <span>💳</span>
+  <span>🪙</span>
+  <span>💰</span>
+  <span>📊</span>
+  <span>🧮</span>
+  <span>🏦</span>
+</div>
+
+<div class="factura-venta-container">
+  <!-- 🧾 Contenedor tipo factura centrado -->
+  <div class="factura-wrapper">
+    <div class="factura-paper animate__animated animate__fadeIn" role="region" aria-label="Facturas de Venta">
+      <!-- Encabezado -->
+      <div class="custom-background mb-4">
+        <h2 class="text-xl font-bold">📄 Facturas de Venta</h2>
+        <p-button
+          id="crear-factura-btn"
+          label="Crear Factura de Venta"
+          icon="pi pi-plus"
+          severity="success"
+          styleClass="p-button-rounded p-button-lg hover-move"
+          (click)="new()"
+          [attr.aria-label]="'Crear factura de venta'"
+        ></p-button>
+      </div>
+
+      <!-- 🪄 Tabla -->
+      <p-table
+        #dt1
+        [value]="infoTable"
+        dataKey="FacturaId"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 15]"
+        [loading]="loading"
+        [paginator]="true"
+        responsiveLayout="scroll"
+        class="modern-table"
+        role="table"
+        aria-describedby="tabla-facturas-desc"
+      >
+        <span id="tabla-facturas-desc" class="visually-hidden">Lista de facturas de venta con opciones para ver, editar y eliminar</span>
+
+        <!-- Encabezado con ordenamiento -->
+        <ng-template pTemplate="header">
+          <tr role="row">
+            <th pSortableColumn="fecha" role="columnheader" scope="col">
+              Fecha
+              <p-sortIcon field="fecha"></p-sortIcon>
+            </th>
+            <th pSortableColumn="numeroFactura" role="columnheader" scope="col">
+              Número de Factura
+              <p-sortIcon field="numeroFactura"></p-sortIcon>
+            </th>
+            <th pSortableColumn="terceroId" role="columnheader" scope="col">
+              Tercero
+              <p-sortIcon field="terceroId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipoPagoId" role="columnheader" scope="col">
+              Tipo de Pago
+              <p-sortIcon field="tipoPagoId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tipoFacturaId" role="columnheader" scope="col">
+              Tipo de Factura
+              <p-sortIcon field="tipoFacturaId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="anticipoId" role="columnheader" scope="col" class="numeric">
+              Anticipo
+              <p-sortIcon field="anticipoId"></p-sortIcon>
+            </th>
+            <th pSortableColumn="total" role="columnheader" scope="col" class="numeric">
+              Total
+              <p-sortIcon field="total"></p-sortIcon>
+            </th>
+            <th pSortableColumn="observaciones" role="columnheader" scope="col">
+              Observaciones
+              <p-sortIcon field="terceroId"></p-sortIcon>
+            </th>
+            <th colspan="3" style="text-align: center;" role="columnheader" scope="col">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <!-- Cuerpo -->
+        <ng-template pTemplate="body" let-infoComponent>
+          <tr role="row" class="invoice-row" tabindex="0">
+            <td role="cell" class="td-fecha">
+              <span class="cell-label visually-hidden">Fecha</span>
+              <span class="cell-value">{{ infoComponent.fecha | date: 'dd MMMM yyyy' }}</span>
+            </td>
+            <td role="cell" class="td-numero">
+              <span class="cell-label visually-hidden">Número</span>
+              <span class="cell-value">{{ infoComponent.numeroFactura }}</span>
+            </td>
+            <td role="cell" class="td-tercero">
+              <span class="cell-label visually-hidden">Tercero</span>
+              <span class="cell-value">{{ getNombreTercero(tercero, infoComponent.terceroId) }}</span>
+            </td>
+            <td role="cell" class="td-tipopago">
+              <span class="cell-label visually-hidden">Tipo de Pago</span>
+              <span class="cell-value">{{ getNombreTipoPago(tipoPago, infoComponent.tipoPagoId) }}</span>
+            </td>
+            <td role="cell" class="td-tipofactura">
+              <span class="cell-label visually-hidden">Tipo de Factura</span>
+              <span class="cell-value">{{ getNombreTipoFactura(tipoFactura, infoComponent.tipoFacturaId) }}</span>
+            </td>
+            <td role="cell" class="td-anticipo numeric">
+              <span class="cell-label visually-hidden">Anticipo</span>
+              <span class="cell-value">{{ getAnticipo(anticipo, infoComponent.anticipoId) }}</span>
+            </td>
+            <td role="cell" class="td-total numeric">
+              <span class="cell-label visually-hidden">Total</span>
+              <strong class="cell-value">{{ getTotal(infoComponent) }}</strong>
+            </td>
+            <td role="cell" class="td-observaciones">
+              <span class="cell-label visually-hidden">Observaciones</span>
+              <span class="cell-value">
+                <span class="obs-text">{{ infoComponent.observaciones }}</span>
+              </span>
+            </td>
+
+            <td role="cell" class="td-action">
+              <p-button
+                icon="pi pi-eye"
+                label="Ver"
+                [text]="true"
+                severity="info"
+                styleClass="hover-bounce view-btn"
+                (click)="verFactura(infoComponent)"
+                [attr.aria-label]="'Ver factura ' + infoComponent.numeroFactura"
+              ></p-button>
+            </td>
+            <td role="cell" class="td-action">
+              <p-button
+                icon="pi pi-pencil"
+                label="Editar"
+                [text]="true"
+                severity="warning"
+                styleClass="hover-bounce edit-btn"
+                (click)="edit(infoComponent)"
+                [attr.aria-label]="'Editar factura ' + infoComponent.numeroFactura"
+              ></p-button>
+            </td>
+            <td role="cell" class="td-action">
+              <p-button
+                icon="pi pi-trash"
+                label="Eliminar"
+                [text]="true"
+                severity="danger"
+                styleClass="hover-bounce delete-btn"
+                (click)="delete(infoComponent)"
+                [attr.aria-label]="'Eliminar factura ' + infoComponent.numeroFactura"
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <!-- Mensaje vacío -->
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="10" class="text-center empty-state">
+              <div class="empty-card">
+                <div class="empty-illustration" aria-hidden="true">🧾✨</div>
+                <div class="empty-text">
+                  <strong>No se encontró información.</strong>
+                  <div class="empty-sub">Haz clic en <em>Crear Factura de Venta</em> para añadir la primera.</div>
+                </div>
+                <div class="empty-cta">
+                  <p-button
+                    label="Crear primera factura"
+                    icon="pi pi-plus"
+                    severity="success"
+                    styleClass="p-button-rounded hover-move"
+                    (click)="new()"
+                    [attr.aria-label]="'Crear primera factura'"
+                  ></p-button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-confirmDialog></p-confirmDialog>
+    </div>
+  </div>
+</div>

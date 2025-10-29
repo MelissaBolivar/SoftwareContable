@@ -17,6 +17,6 @@
         protected TimeoutErrorException(
             System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context
-        ) : base(info, context) { }
+        ) : base(info: info, context: context) { }
     }
 }

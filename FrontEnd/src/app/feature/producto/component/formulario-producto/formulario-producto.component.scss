@@ -1,0 +1,219 @@
+/* Scope: aplicar sobre el formulario existente (.fp-card) dentro de module-product */
+.module-product {
+  --brand-bg: #147016;
+  --brand-2: #1fa31f;
+  --card: #ffffff;
+  --muted: #435b50;
+  --accent: #0b63d6;
+  --accent-2: #1470e6;
+  --danger: #d64545;
+  --glass: rgba(255,255,255,0.75);
+  --soft-shadow: 0 18px 40px rgba(6,24,54,0.06);
+  --glow: 0 18px 44px rgba(11,99,214,0.08);
+}
+
+/* Card base (aplica a tu template .fp-card) */
+.module-product .fp-card {
+  width: 100%;
+  max-width: 760px;
+  margin: 18px auto;
+  background: linear-gradient(180deg, var(--card), #fbfcff);
+  border-radius: 14px;
+  padding: 18px;
+  position: relative;
+  box-shadow: var(--soft-shadow), var(--glow);
+  border-left: 6px solid rgba(11,99,214,0.06);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.module-product .fp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 70px rgba(6,24,54,0.10), 0 22px 48px rgba(11,99,214,0.06);
+}
+
+/* Header */
+.module-product .fp-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.module-product .fp-card__title {
+  margin: 0;
+  color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.module-product .fp-card__subtitle {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+/* Close button */
+.module-product .fp-close-btn {
+  background: linear-gradient(180deg,#fff,#fffefc) !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(11,99,214,0.08) !important;
+  padding: 8px !important;
+  box-shadow: 0 6px 18px rgba(11,99,214,0.06) !important;
+}
+.module-product .fp-close-btn .p-button-icon {
+  color: var(--accent);
+}
+
+/* Form grid */
+.module-product .fp-card__body { padding: 14px 0 4px 0; }
+.module-product .fp-form-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media(min-width:720px) {
+  .module-product .fp-form-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Fields */
+.module-product .fp-field { display:flex; flex-direction:column; gap:6px; }
+.module-product .fp-field__label { font-size:0.82rem; color:var(--muted); font-weight:700; }
+
+.module-product input[pInputText] {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(6,24,54,0.06);
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  font-weight: 700;
+  color: #16323b;
+  transition: box-shadow .15s ease, transform .12s ease, border-color .12s ease;
+}
+.module-product input[pInputText]:focus {
+  outline: none;
+  box-shadow: 0 12px 30px rgba(11,99,214,0.10);
+  transform: translateY(-3px);
+  border-color: rgba(11,99,214,0.18);
+}
+
+/* Invalid state */
+.module-product .is-invalid {
+  border-color: var(--danger) !important;
+  box-shadow: 0 8px 24px rgba(214,65,65,0.06);
+}
+
+/* Help / error messages */
+.module-product .fp-field__help {
+  min-height: 18px;
+  font-size: 0.82rem;
+  color: var(--danger);
+  display:flex; gap:8px; align-items:center;
+}
+.module-product .fp-erricon { width:18px; height:auto; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.06)); }
+
+/* Footer / buttons */
+.module-product .fp-card__footer { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
+.module-product .fp-btn { padding:10px 14px; border-radius:12px; font-weight:800; display:inline-flex; align-items:center; gap:8px; cursor:pointer; transition: transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s ease; }
+
+.module-product .fp-btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(6,24,54,0.06);
+  color: var(--muted);
+}
+.module-product .fp-btn--ghost:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 18px 40px rgba(11,99,214,0.06);
+}
+
+/* Primary button: gradient + improved bounce (less aggressive) */
+.module-product .fp-btn--primary {
+  background: linear-gradient(90deg, #ff6b6b, #ff9a6b) !important;
+  border: none !important;
+  color: #fff;
+  box-shadow: 0 18px 44px rgba(255,107,107,0.12);
+  transform-origin: center bottom;
+}
+
+/* subtle continuous motion for CTA and cancel (reduced frequency and amplitude) */
+@keyframes mp-bounce {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  55% { transform: translateY(0); }
+  80% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+@keyframes mp-wobble {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px) rotate(-2deg); }
+  50% { transform: translateX(3px) rotate(1deg); }
+  75% { transform: translateX(-1px) rotate(-1deg); }
+  100% { transform: translateX(0); }
+}
+.module-product .fp-anim { animation: mp-bounce 4.2s ease-in-out infinite; will-change: transform; }
+.module-product .fp-anim-left { animation: mp-wobble 5s ease-in-out infinite; will-change: transform; }
+
+/* Disabled state: remove motion and dim */
+.module-product .fp-btn[disabled],
+.module-product .p-button[disabled] {
+  opacity: .6 !important;
+  pointer-events: none;
+  animation: none !important;
+  box-shadow: none !important;
+  filter: grayscale(.06);
+}
+
+/* Overlay spinner (scoped) */
+.module-product .overlay-spinner {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.28);
+  display:flex; align-items:center; justify-content:center;
+  z-index: 9999; pointer-events: all;
+}
+::ng-deep .module-product .custom-spinner { width:50px; height:50px; }
+
+/* Accessibility focus */
+.module-product input:focus,
+.module-product .p-inputtext:focus,
+.module-product .p-dropdown:focus,
+.module-product button:focus {
+  outline: 4px solid rgba(11,99,214,0.10);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(11,99,214,0.06);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .module-product .p-field-container { flex-direction: column; }
+  .module-product .p-field { min-width: 0; }
+  .module-product .p-field-buttons { flex-direction: column-reverse; gap: 0.5rem; }
+  .module-product .ml-auto { margin-left: 0; }
+  .module-product .fp-card__footer { justify-content: center; gap: 10px; }
+}
+
+/* Small decorative accents (magic) */
+.module-product .fp-card::before {
+  content: "";
+  position: absolute;
+  left: -40px; top: 10%;
+  width: 140px; height: 140px;
+  background: radial-gradient(circle at 30% 30%, rgba(11,99,214,0.06), transparent 30%), linear-gradient(135deg, rgba(255,171,145,0.04), transparent 40%);
+  transform: rotate(-12deg);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+}
+.module-product .fp-card::after {
+  content: "";
+  position: absolute;
+  right: -20px; bottom: -10px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,154,107,0.06), transparent 35%);
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: 0;
+}
+.module-product .fp-card > * { position: relative; z-index: 2; }
+
+/* Small utility: make p-button labels bold and sized */
+.module-product ::ng-deep .p-button .p-button-label,
+.module-product ::ng-deep .p-button .p-button-icon {
+  font-weight: 800;
+  line-height: 1;
+}

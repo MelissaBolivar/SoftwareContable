@@ -1,4 +1,4 @@
-﻿using Contable.Domain.Servicios;
+﻿using Contable.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Contable.Infrastructure.Extensions

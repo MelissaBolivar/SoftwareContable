@@ -1,0 +1,194 @@
+<div class="flex justify-between items-center w-full custom-background">
+  <p class="custom-background">{{ headerName }} {{ action }} cliente</p>
+</div>
+
+<form [formGroup]="componentForm" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+
+    <div class="p-field-container">
+      <div class="p-field">
+        <p-dropdown
+          id="type"
+          [options]="listUser"
+          optionLabel="nombre"
+          optionValue="tipoDocId"
+          formControlName="tipoDocumentoId"
+          placeholder="Tipo de Documento*"
+        >
+        </p-dropdown>
+
+        <div *ngIf="componentForm.get('tipoDocumentoId')?.invalid &&
+                    (componentForm.get('tipoDocumentoId')?.dirty || componentForm.get('tipoDocumentoId')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('tipoDocumentoId')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <input
+          id="numeroDocumento"
+          type="text"
+          pInputText
+          formControlName="numeroDocumento"
+          placeholder="Numero de documento*"
+        />
+        <div *ngIf="componentForm.get('numeroDocumento')?.invalid &&
+                    (componentForm.get('numeroDocumento')?.dirty || componentForm.get('numeroDocumento')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('numeroDocumento')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('numeroDocumento')?.hasError('pattern')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberInt }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-field-container">
+      <div class="p-field">
+        <input
+          id="razonSocial"
+          type="text"
+          pInputText
+          formControlName="razonSocial"
+          placeholder="Razon social tercero*"
+        />
+        <div *ngIf="componentForm.get('razonSocial')?.invalid &&
+                    (componentForm.get('razonSocial')?.dirty || componentForm.get('razonSocial')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('razonSocial')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('razonSocial')?.hasError('pattern')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberInt }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('razonSocial')?.hasError('minlength')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberIntGreatOne }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('razonSocial')?.hasError('maxlength')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberIntLessTwelve }}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <input
+          id="direccion"
+          type="text"
+          pInputText
+          formControlName="direccion"
+          placeholder="Direccion Tercero*"
+        />
+        <div *ngIf="componentForm.get('direccion')?.invalid &&
+                    (componentForm.get('direccion')?.dirty || componentForm.get('direccion')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('direccion')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('direccion')?.hasError('pattern')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberInt }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-field-container">
+
+      <div class="p-field">
+        <input
+          id="telefono"
+          type="text"
+          pInputText
+          formControlName="telefono"
+          placeholder="Telefono Tercero*"
+        />
+        <div *ngIf="componentForm.get('telefono')?.invalid &&
+                    (componentForm.get('telefono')?.dirty || componentForm.get('telefono')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('telefono')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('telefono')?.hasError('pattern')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ possitiveNumberInt }}</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <input
+          id="correo"
+          type="email"
+          pInputText
+          formControlName="correo"
+          placeholder="Correo electronico*"
+        />
+        <div *ngIf="componentForm.get('correo')?.invalid &&
+                    (componentForm.get('correo')?.dirty || componentForm.get('correo')?.touched)">
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('correo')?.hasError('required')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>{{ requiredField }}</span>
+          </span>
+
+          <span class="error-message flex align-items-center"
+                *ngIf="componentForm.get('correo')?.hasError('email')">
+            <img class="w-2rem pl-2" src="/assets/svg/required.svg" alt="error">
+            <span>Correo inválido</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-field-container-button">
+      <div class="p-field p-field-buttons">
+        <button
+          pButton
+          type="submit"
+          class="p-button-text p-button-success ml-auto"
+          [disabled]="!componentForm.valid"
+        >
+          Guardar
+        </button>
+
+        <button
+          pButton
+          type="button"
+          class="p-button-text p-button-success"
+          (click)="onClose()"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="overlay-spinner" *ngIf="loading">
+  <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
+</div>

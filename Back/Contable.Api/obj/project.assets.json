@@ -3333,6 +3333,10 @@
       "Contable.Application/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Contable.Domain": "1.0.0",
+          "MediatR": "11.0.0"
+        },
         "compile": {
           "bin/placeholder/Contable.Application.dll": {}
         },
@@ -10263,7 +10267,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

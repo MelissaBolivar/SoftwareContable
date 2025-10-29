@@ -1832,6 +1832,10 @@
         }
       },
       "Contable.Application/1.0.0": {
+        "dependencies": {
+          "Contable.Domain": "1.0.0",
+          "MediatR": "11.0.0"
+        },
         "runtime": {
           "Contable.Application.dll": {
             "assemblyVersion": "1.0.0.0",

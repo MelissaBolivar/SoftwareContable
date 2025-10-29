@@ -1,5 +1,6 @@
-﻿using Contable.Domain.Entidades;
-using Contable.Infrastructure.Contexto;
+﻿using Contable.Application.Dtos.Rol;
+using Contable.Domain.Entities;
+using Contable.Infrastructure.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,9 @@ namespace Contable.Api.Controllers
             _context = context;
         }
 
+
         // 🔹 GET: api/rol
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rol>>> GetRoles()
         {
@@ -24,7 +27,8 @@ namespace Contable.Api.Controllers
             return Ok(roles);
         }
 
-        // 🔹 GET: api/rol/5
+        // 🔹 GET: api/rol/5<
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Rol>> GetRol(int id)
         {
@@ -39,6 +43,7 @@ namespace Contable.Api.Controllers
         }
 
         // 🔹 POST: api/rol
+
         [HttpPost]
         public async Task<ActionResult<Rol>> PostRol([FromBody] CreateRolDto rol)
         {
@@ -47,13 +52,13 @@ namespace Contable.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            
 
-            Rol rolAdd = new() { 
+
+            Rol rolAdd = new()
+            {
                 NombreRol = rol.NombreRol,
                 DescripcionRol = rol.DescripcionRol,
                 FechaRegistro = DateTime.UtcNow, // asigna fecha automáticamente
-                Estado = rol.Estado
             };
 
 
@@ -63,17 +68,61 @@ namespace Contable.Api.Controllers
 
             return CreatedAtAction(nameof(GetRol), new { id = rolAdd.RolId }, rolAdd);
         }
+
+
+        // 🔹 PUT: api/rol
+
+        [HttpPut]
+        public async Task<ActionResult<UpdateRolDto>> PutRol([FromBody] UpdateRolDto rol)
+        {
+            if (rol.RolId != null)
+            {
+                var actualizarRol = await _context.Rol.FindAsync(rol.RolId);
+
+                if (actualizarRol != null)
+                {
+                    actualizarRol.NombreRol = rol.NombreRol;
+                    actualizarRol.DescripcionRol = rol.DescripcionRol;
+
+                    _context.Rol.Update(actualizarRol);
+                    await _context.SaveChangesAsync();
+                    return rol;
+                }
+                else
+                {
+                    return NotFound(new { mensaje = $"No se encontró el Rol con Id = {rol.RolId}" });
+                }
+            }
+            else
+            {
+                return NotFound(new { mensaje = $"Se debe enviar un rol" });
+            }
+        }
+
+        // 🔹 DELETE: api/rol
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteRol(int id)
+        {
+
+            var buscarRol = await _context.Rol.FindAsync(id);
+
+            if (buscarRol != null)
+            {
+                _context.Rol.Remove(buscarRol);
+                await _context.SaveChangesAsync();
+                return StatusCode(200, "El rol se elimino correctamente");
+            }
+            else
+            {
+                return NotFound(new { mensaje = $"No se encontró el Rol con Id = {id}" });
+            }
+
+        }
+
+
+
+
     }
 
-    public class CreateRolDto
-    {
-        /// <summary>Nombre del rol</summary>
-        public string NombreRol { get; set; } = string.Empty;
-
-        /// <summary>Descripción del rol</summary>
-        public string DescripcionRol { get; set; } = string.Empty;
-
-        /// <summary>Estado del rol (Activo/Inactivo)</summary>
-        public string Estado { get; set; } = "Activo";
-    }
 }

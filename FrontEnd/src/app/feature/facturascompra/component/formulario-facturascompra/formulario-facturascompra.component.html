@@ -1,0 +1,249 @@
+<form [formGroup]="componentForm" (ngSubmit)="guardar()" class="p-fluid p-formgrid p-grid">
+  <!-- Número de Factura -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="numeroFactura">Número de Factura*</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="numeroFactura"
+      id="numeroFactura"
+      placeholder="Número"
+      class="w-full"
+    />
+  </div>
+
+  <!-- Fecha -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="fecha">Fecha*</label>
+    <div style="max-width: 220px;">
+      <p-calendar
+        formControlName="fecha"
+        id="fecha"
+        dateFormat="dd MM yy"
+        showIcon="true"
+        [locale]="customLocale"
+        styleClass="p-inputtext w-full"
+      ></p-calendar>
+    </div>
+  </div>
+
+  <!-- Proveedor -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="terceroId">Proveedor*</label>
+    <p-dropdown
+      [options]="tercero"
+      optionLabel="nombre"
+      optionValue="terceroId"
+      formControlName="terceroId"
+      placeholder="Selecciona un Proveedor"
+      id="terceroId"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <!-- Tipo de Pago -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="tipoPagoId">Tipo de Pago*</label>
+    <p-dropdown
+      [options]="tipoPago"
+      optionLabel="nombre"
+      optionValue="tipoPagoId"
+      formControlName="tipoPagoId"
+      placeholder="Selecciona tipo de pago"
+      id="tipoPagoId"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <!-- Tipo de Factura -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="tipoFacturaId">Tipo de Factura*</label>
+    <p-dropdown
+      [options]="tipoFactura"
+      optionLabel="nombre"
+      optionValue="tipoFacturaId"
+      formControlName="tipoFacturaId"
+      placeholder="Selecciona tipo de factura"
+      id="tipoFacturaId"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <!-- Anticipo -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="anticipoId">Anticipo*</label>
+    <p-dropdown
+      [options]="anticipo"
+      optionLabel="nombre"
+      optionValue="anticipoId"
+      formControlName="anticipoId"
+      placeholder="Selecciona anticipo"
+      id="anticipoId"
+      class="w-full"
+    ></p-dropdown>
+  </div>
+
+  <!-- Productos -->
+  <div formArrayName="detalleProducto" class="p-col-12">
+    <div *ngFor="let grupo of detalleProducto.controls; let i = index" [formGroupName]="i" class="p-field-container">
+      <div class="p-field">
+        <label [attr.for]="'productoId-' + i">Producto*</label>
+        <p-dropdown
+          [options]="producto"
+          optionLabel="nombre"
+          optionValue="productoId"
+          formControlName="productoId"
+          placeholder="Selecciona un producto"
+          [id]="'productoId-' + i"
+        ></p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label [attr.for]="'unidades-' + i">Unidades*</label>
+        <input
+          type="number"
+          pInputText
+          formControlName="unidades"
+          [id]="'unidades-' + i"
+          placeholder="Unidades"
+        />
+      </div>
+
+      <div class="p-field">
+        <label [attr.for]="'precio-' + i">Precio*</label>
+        <input
+          type="number"
+          pInputText
+          formControlName="precio"
+          [id]="'precio-' + i"
+          placeholder="Precio"
+        />
+      </div>
+
+      <div class="p-field">
+        <label>Total</label>
+        <input
+          type="number"
+          pInputText
+          [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value"
+          disabled
+        />
+      </div>
+    </div>
+
+    <div class="p-field-buttons p-mt-2">
+      <button
+        type="button"
+        pButton
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="agregarProducto()"
+        class="custom-background p-button-sm ml-auto"
+        style="width: auto; padding: 0.25rem 0.75rem;"
+        [disabled]="action === 'ver'"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Servicios -->
+  <div formArrayName="detalleServicio" class="p-col-12">
+    <div *ngFor="let grupo of detalleServicio.controls; let i = index" [formGroupName]="i" class="p-field-container">
+      <div class="p-field">
+        <label [attr.for]="'servicioId-' + i">Servicio*</label>
+        <p-dropdown
+          [options]="servicio"
+          optionLabel="nombre"
+          optionValue="servicioId"
+          formControlName="servicioId"
+          placeholder="Selecciona un servicio"
+          [id]="'servicioId-' + i"
+        ></p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label [attr.for]="'unidades-serv-' + i">Unidades*</label>
+        <input
+          type="number"
+          pInputText
+          formControlName="unidades"
+          [id]="'unidades-serv-' + i"
+          placeholder="Unidades"
+        />
+      </div>
+
+      <div class="p-field">
+        <label [attr.for]="'precio-serv-' + i">Precio*</label>
+        <input
+          type="number"
+          pInputText
+          formControlName="precio"
+          [id]="'precio-serv-' + i"
+          placeholder="Precio"
+        />
+      </div>
+
+      <div class="p-field">
+        <label>Total</label>
+        <input
+          type="number"
+          pInputText
+          [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value"
+          disabled
+        />
+      </div>
+    </div>
+
+    <div class="p-field-buttons p-mt-2">
+      <button
+        type="button"
+        pButton
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="agregarServicio()"
+        class="custom-background p-button-sm ml-auto"
+        style="width: auto; padding: 0.25rem 0.75rem;"
+        [disabled]="action === 'ver'"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Observaciones -->
+  <div class="p-field p-col-12">
+    <label for="observaciones">Observaciones*</label>
+    <textarea
+      pInputTextarea
+      formControlName="observaciones"
+      id="observaciones"
+      rows="3"
+      placeholder="Observaciones"
+      class="w-full"
+    ></textarea>
+  </div>
+
+  <!-- Total general -->
+  <div class="p-field p-col-12 p-md-4">
+    <label for="total">Total</label>
+    <input
+      type="number"
+      pInputText
+      formControlName="total"
+      id="total"
+      [disabled]="true"
+      class="w-full"
+    />
+  </div>
+
+  <!-- Botón de Guardar -->
+  <div class="p-field-buttons p-col-12 p-mt-3">
+    <button
+      type="submit"
+      pButton
+      label="Guardar"
+      icon="pi pi-save"
+      [disabled]="componentForm.invalid || loading || action === 'ver'"
+      class="custom-background p-button-sm ml-auto"
+      style="width: auto; padding: 0.25rem 1rem;"
+    ></button>
+  </div>
+</form>
+

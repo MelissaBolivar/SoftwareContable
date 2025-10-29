@@ -1,0 +1,157 @@
+<p-table
+    #dt1
+    [value]="infoTable"
+    dataKey="id"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 15]"
+    [loading]="loading"
+    [paginator]="true"
+    class="fixed-height-table"
+>
+    <ng-template pTemplate="caption">
+        <div class="flex w-full p-1 ">
+            <br><br>     
+            <p-button label="Nuevo colaborador"  severity="success"   (keydown.enter)="new()"  (click)="new()"/>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="th-min-width" pSortableColumn="Id" id="IdTh">
+                <div class="flex align-items-center">
+                    Id
+                </div>           
+            </th>
+            <th class="th-min-width" pSortableColumn="userName" id="userNameTh">
+                <div class="flex align-items-center">
+                    Tipo de documento
+                </div>
+            </th>
+            <th class="th-min-width" pSortableColumn="expenseTyipeName" id="expenseTyipeNameTh">
+                <div class="flex align-items-center">
+                    Numero de documento
+                </div>
+            </th>
+            <th class="th-min-width" pSortableColumn="month" id="monthTh">
+                <div class="flex align-items-center">
+                    Razon social
+                </div>
+            </th>
+
+            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
+                <div class="flex align-items-center">
+                    Direccion
+                </div>
+            </th>
+            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
+                <div class="flex align-items-center">
+                    Telefono
+                </div>
+            </th>
+            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
+                <div class="flex align-items-center">
+                    Correo electronico
+                </div>
+            </th>
+                                                                       
+            <th class="th-min-width" id="editTh">
+                <div class="flex align-items-center">                
+                </div>
+            </th>                
+            <th class="th-min-width" id="deleteTh">
+                <div class="flex align-items-center">                
+                </div>
+            </th>                
+        </tr>
+        <tr>
+            <th class="th-min-width" id="filterIdTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'Id')" placeholder="Id" />
+                </span>
+            </th>
+            <th class="th-min-width" id="filterUserNameTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'UserName')" placeholder="Tipo de documento" />
+                </span>
+            </th>            
+            <th class="th-min-width" id="filterExpenseTypeNameTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'ExpenseTypeName')" placeholder="Número de Documento" />
+                </span>
+            </th>         
+            <th class="th-min-width" id="filterMonthTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'Month')" placeholder="Razón Social" />
+                </span>
+            </th>         
+            <th class="th-min-width" id="filterAmountTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Direccion" />
+                </span>
+            </th>       
+             <th class="th-min-width" id="filterAmountTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Telefono" />
+                </span>
+            </th>  
+             <th class="th-min-width" id="filterAmountTh">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Correo Electronico" />
+                </span>
+            </th>  
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-infoComponent>
+        <tr>
+            <td>
+                {{ infoComponent.terceroId }}
+            </td>
+            <td>
+                {{ infoComponent.tipoDocId }}
+            </td>                    
+            <td>
+                {{ infoComponent.numeroDoc }}
+            </td>                       
+            <td>
+                {{ infoComponent.razonSocialTercero }}
+            </td>                                         
+            <td>
+                {{ infoComponent.direccionTercero }}
+            </td>                       
+            <td>
+                {{ infoComponent.telefonoTercero }}
+            </td>                       
+            <td>
+                {{ infoComponent.correoElectronicoTercero }}
+            </td>                       
+            <td>
+                <p-button label="Editar" [text]="true" severity="warning" 
+                    (click)="edit(
+                        infoComponent
+                    )"
+                    (keydown.enter)="edit(
+                        infoComponent
+                    )"
+                />
+            </td>
+            <td>
+                <p-button label="Eliminar" [text]="true" severity="danger"  (click)="delete(
+                        infoComponent
+                    )" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No se encontro información.</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-confirmDialog></p-confirmDialog>

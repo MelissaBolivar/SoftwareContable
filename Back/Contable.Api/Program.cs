@@ -4,8 +4,8 @@ using MediatR;
 using Serilog;
 using Prometheus;
 using Microsoft.EntityFrameworkCore;
-using Contable.Infrastructure.Contexto;
 using Contable.Infrastructure.Extensions;
+using Contable.Infrastructure.Context;
 
 namespace Contable.Api
 {
