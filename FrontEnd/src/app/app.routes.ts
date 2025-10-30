@@ -33,6 +33,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'comprobantecaja',
+    loadComponent: () => import('./feature/comprobantecaja/comprobantecaja.component').then(m => m.ComprobantecajaComponent),
+    canActivate: [AuthGuard]
+  },
+
+
+  {
     path: 'productos',
     loadComponent: () => import('./feature/producto/producto.component').then(m => m.ProductoComponent),
     canActivate: [AuthGuard]

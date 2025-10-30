@@ -147,20 +147,20 @@ componentForm: FormGroup;
     this.ref.close();
   }
 
-  private createParserFormData(): CreateOrUpdateProveedor{
+  private createParserFormData(): CreateOrUpdateProveedor{debugger;
     return {     
-      TerceroId: null,       
+      TerceroId: null,      
       TipoDocId: this.componentForm.value.tipoDocumentoId,
       NumeroDoc: this.componentForm.value.numeroDocumento,
       RazonSocialTercero: this.componentForm.value.razonSocial,
-      DireccionTercero: this.componentForm.value.direccionTercero,
+      DireccionTercero: this.componentForm.value.direccion,
       TelefonoTercero: this.componentForm.value.telefono,
       CorreoElectronicoTercero: this.componentForm.value.correo,
       TipoTerceroId: 1
     }
   }
 
-  private updateParserFormData():CreateOrUpdateProveedor{
+  private updateParserFormData():CreateOrUpdateProveedor{debugger;
     return {
       TerceroId: Number.parseInt(this.id),      
       TipoDocId: this.componentForm.value.tipoDocumentoId,

@@ -8,3 +8,4 @@ export interface CreateOrUpdateProveedor{
     CorreoElectronicoTercero: string;
     TipoTerceroId:number;
 }
+

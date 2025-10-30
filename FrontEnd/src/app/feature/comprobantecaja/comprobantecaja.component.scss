@@ -1,0 +1,224 @@
+/* Tokens y variables */
+:root {
+  --accent: #147016;
+  --light-accent: #1ea446;
+  --container-bg: #ffffff;
+  --shadow: rgba(20, 112, 22, 0.04);
+  --bg-start: #f9fafb;
+  --bg-end: #f0fdf4;
+  --text-main: #0b1220;
+  --muted: #506272;
+  --chip-warning: #ffb020;
+}
+
+$accent: var(--accent);
+$light-accent: var(--light-accent);
+$container-bg: var(--container-bg);
+$shadow: var(--shadow);
+
+@function rgba-accent($alpha) { @return rgba(20, 112, 22, $alpha); }
+
+/* Mixins */
+@mixin flex($dir: row, $align: center, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+@mixin respond-sm { @media (max-width: 900px) { @content; } }
+@mixin respond-xs { @media (max-width: 640px) { @content; } }
+
+/* Contenedor principal */
+.factura-compra-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 2rem 0;
+  background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* Wrapper y tarjeta */
+.factura-wrapper {
+  @include flex(row, flex-start, center, 0);
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.factura-paper {
+  @include flex(column, flex-start, center, 1rem);
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), $container-bg);
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
+  max-width: 1100px;
+  width: 95%;
+  box-shadow: 0 18px 40px $shadow;
+  border: 1px solid rgba-accent(0.06);
+  animation: fadeInCard 0.6s ease;
+  position: relative;
+  z-index: 3;
+  transform: translateZ(0);
+  transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease;
+}
+.factura-paper:hover {
+  border-color: rgba-accent(0.14);
+  box-shadow: 0 28px 60px rgba-accent(0.08);
+  transform: translateY(-6px);
+}
+.factura-paper::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: 1rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%);
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.custom-background {
+  background: linear-gradient(135deg, $accent 0%, $light-accent 100%);
+  color: #b654ae;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  @include flex(row, center, space-between, 1rem);
+  width: 100%;
+  animation: fadeInHeader 0.6s ease;
+}
+@keyframes fadeInHeader { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.custom-background h2 { margin: 0; font-weight: 700; letter-spacing: 0.4px; font-size: 1.15rem; display:flex; align-items:center; gap:10px; }
+
+/* Card (empty state) */
+.card { background: #fff; border-radius: 1rem; box-shadow: 0 8px 24px rgba(11,17,28,0.06); padding: 1.5rem; animation: fadeInCard 0.6s ease; }
+
+/* Tabla */
+.modern-table { margin-top: 1rem; width: 100%; border-radius: 1rem; overflow: hidden; background: white; box-shadow: 0 6px 18px rgba(9,18,25,0.04); transition: all .3s ease-in-out; }
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: linear-gradient(180deg, rgba-accent(0.06), rgba(255,255,255,0));
+  font-weight: 700;
+  color: $accent;
+  border-bottom: none;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  user-select: none;
+  transition: background-color .18s ease, transform .12s ease;
+}
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th:hover { background-color: #dcfce7; cursor: pointer; transform: translateY(-2px); }
+:host ::ng-deep .p-sortable-column.p-highlight { background-color: #dcfce7 !important; color: $accent !important; }
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  transition: transform .2s ease, box-shadow .2s ease, background-color .18s;
+  background: linear-gradient(180deg,#ffffff,#fbfeff);
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(11,17,28,0.035);
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: rgba-accent(0.035);
+  transform: translateY(-6px);
+  box-shadow: 0 22px 46px rgba-accent(0.08);
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td:nth-child(2) { color: var(--text-main); font-weight:700; }
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td.numeric { text-align: right; font-variant-numeric: tabular-nums; font-weight:600; }
+
+/* Observaciones chip */
+:host ::ng-deep .obs-text {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:9999px;
+  background: rgba(245,246,250,0.92);
+  color: var(--muted);
+  border: 1px solid rgba(71,85,105,0.06);
+  font-size: 0.88rem;
+}
+:host ::ng-deep .obs-text.alert {
+  background: linear-gradient(90deg,#fff7cd,#fff3b8);
+  color: #7a4b00;
+  border-color: rgba(122,75,0,0.12);
+  box-shadow: 0 6px 18px rgba(122,75,0,0.06);
+  font-weight:700;
+  padding:8px 12px;
+  font-size:0.95rem;
+  border-radius:9999px;
+  display:inline-block;
+  line-height:1;
+  min-width:64px;
+  text-align:center;
+  letter-spacing:0.2px;
+}
+:host ::ng-deep .obs-text.alert i { margin-right:8px; color:#a15a00; font-size:1rem; vertical-align:middle; }
+
+/* Botones */
+.hover-bounce { transition: transform .18s cubic-bezier(.2,.9,.3,1), box-shadow .12s ease, filter .12s ease; will-change: transform; }
+.hover-bounce:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(11,17,28,0.08); }
+.hover-move { transition: transform .18s ease, box-shadow .18s ease; will-change: transform; }
+.hover-move:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 30px rgba-accent(0.16); }
+:host ::ng-deep .p-button.p-button-text .p-button-icon { margin-right:8px; font-size:1.05rem; }
+
+/* Paginador */
+:host ::ng-deep .p-paginator { background: transparent; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px 0 6px; color:var(--muted); }
+:host ::ng-deep .p-paginator .p-page { background:#fff; border-radius:8px; padding:6px 10px; box-shadow: 0 6px 18px rgba(11,17,28,0.04); }
+
+/* Formularios */
+.p-fluid { @include flex(column, stretch, flex-start, 1rem); }
+.p-field-container { @include flex(row, flex-start, flex-start, 1rem); flex-wrap:wrap; }
+.p-field { flex:1; padding-top:0.5rem; }
+.p-field label { display:block; margin-bottom:0.5rem; font-weight:600; color:$accent; }
+.p-dropdown, .p-inputtext { width:100%; border-radius:0.5rem; }
+
+/* Botonera */
+.p-field-buttons, .p-field-container-button { @include flex(row, center, flex-end, 1rem); width:100%; }
+.ml-auto { margin-left: auto; }
+
+/* Utilidades */
+.text-center { text-align:center; }
+button, .p-button { transition: all .22s ease-in-out; border-radius:10px !important; padding:0.35rem 0.6rem !important; }
+button:focus, .p-button:focus { outline:none; box-shadow: 0 0 0 4px rgba-accent(0.14); }
+.visually-hidden { position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+
+/* Responsivo */
+@include respond-sm {
+  .factura-paper { width:98%; padding:1.2rem; }
+  .custom-background { flex-direction:column; gap:0.6rem; text-align:center; align-items:center; }
+  :host ::ng-deep .p-datatable th, :host ::ng-deep .p-datatable td { padding:10px 12px; font-size:0.95rem; }
+}
+@include respond-xs {
+  .factura-paper { padding:1rem; border-radius:0.75rem; }
+  :host ::ng-deep .p-datatable th, :host ::ng-deep .p-datatable td { font-size:0.9rem; white-space:normal; }
+}
+
+/* Heurísticas y accesibilidad */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td .obs-text:empty { display:inline-block; opacity:0.5; font-style:italic; }
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:focus-within,
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:focus {
+  outline: 3px solid rgba(20,112,22,0.08);
+  outline-offset: 4px;
+  box-shadow: 0 20px 44px rgba(20,112,22,0.06);
+}
+
+/* PrimeNG tweaks */
+:host ::ng-deep .p-button-rounded { border-radius: 12px !important; }
+:host ::ng-deep .p-button { font-weight: 600; }
+
+/* Forzar color legible si hay overrides (temporal para debug) */
+.factura-paper, :host ::ng-deep .p-datatable td { color: var(--text-main) !important; }
+
+//Meli//

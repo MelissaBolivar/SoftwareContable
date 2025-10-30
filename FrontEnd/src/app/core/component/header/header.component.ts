@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit{
     items: [
       { label: 'Facturas de Venta', routerLink: ['/facturasventa'] },
       { label: 'Facturas de Compra', routerLink: ['/facturascompra'] },
-      { label: 'Comprobante de Caja', routerLink: ['/comprobantescaja'] }
+      { label: 'Comprobante de Caja', routerLink: ['/comprobantecaja'] }
     ]
   },
   {
