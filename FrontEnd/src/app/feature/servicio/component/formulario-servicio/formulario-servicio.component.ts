@@ -14,9 +14,8 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 
 import { ServicioService } from '../../../../shared/Service/servicio/servicio.service';
-import { Servicio } from '../../../../shared/interfaces/servicio.interface';
 import { CreateOrUpdateServicio } from '../../../../shared/interfaces/CreateOrUpdateServicio.interface';
-
+import { Servicio } from '../../../../shared/interfaces/servicio.interface';
 
 @Component({
   selector: 'app-formulario-servicio',
@@ -48,8 +47,8 @@ export class FormularioServicioComponent implements OnInit, OnDestroy {
 
   categorias: { label: string; value: string }[] = [
     { label: 'General', value: 'general' },
-    { label: 'Técnico', value: 'tecnico' },
-    { label: 'Consultoría', value: 'consultoria' }
+    { label: 'Electrónico', value: 'electronico' },
+    { label: 'Consumible', value: 'consumible' }
   ];
 
   private readonly destroy$ = new Subject<void>();
@@ -61,8 +60,9 @@ export class FormularioServicioComponent implements OnInit, OnDestroy {
     private readonly service: ServicioService,
     private readonly messageService: MessageService
   ) {
+    // --- Ajuste: Validator para que solo acepte números ---
     this.componentForm = this.formBuilder.group({
-      codigo: ['', Validators.required],
+      codigo: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       nombre: ['', Validators.required],
       categoria: [null]
     });
@@ -129,9 +129,10 @@ export class FormularioServicioComponent implements OnInit, OnDestroy {
 
           const normalize = (v: any) => (v || '').toString().trim().toLowerCase();
 
-          const found = this.servicios.find(s => {
-            if (!s) return false;
-            return normalize((s as any).codigo) === codigoNorm;
+          // Buscar cualquier servicio (activo o inactivo) con el mismo código
+          const found = this.servicios.find(p => {
+            if (!p) return false;
+            return normalize(p.codigo) === codigoNorm;
           });
 
           const actionLower = (this.action || '').toLowerCase();
@@ -172,6 +173,7 @@ export class FormularioServicioComponent implements OnInit, OnDestroy {
             return;
           }
 
+          // Fallback: tratar como creación
           if (found) { marcarDuplicado(); return; }
           const createParser = this.createParserFormData();
           this.service.create(createParser).pipe(takeUntil(this.destroy$)).subscribe({
@@ -234,6 +236,10 @@ export class FormularioServicioComponent implements OnInit, OnDestroy {
     detail: string
   ): void {
     this.messageService.add({ severity, summary, detail });
+  }
+
+  toggleTheme(): void {
+    // preserved in case you want theme switching later
   }
 
   ngOnDestroy(): void {

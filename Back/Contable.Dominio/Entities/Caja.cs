@@ -13,6 +13,5 @@ namespace Contable.Domain.Entities
 
         // propiedades de Navegacion, sirve para relacionarse las tablas entre ellas.
 
-        public ICollection<Factura>? Facturas { get; set; }    // Relación con Facturas
     }
 }

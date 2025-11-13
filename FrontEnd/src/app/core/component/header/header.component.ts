@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToolbarModule } from "primeng/toolbar";
 import { AvatarModule } from "primeng/avatar";
@@ -10,103 +11,114 @@ import { MenuItem } from 'primeng/api';
 import { PanelMenuModule } from 'primeng/panelmenu';
 
 @Component({
-  selector: 'app-header',  
+  selector: 'app-header',
   standalone: true,
   imports: [
     CommonModule,
-    SidebarModule,    
+    SidebarModule,
     AvatarModule,
     ButtonModule,
     DividerModule,
     ToolbarModule,
-    PanelMenuModule 
+    PanelMenuModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   sidebarVisible = false;
   dropdownVisible = false;
   userName = '';
-  isLogged= true;
+  isLogged = true;
 
-  menuItems: MenuItem[] = [
-  {
-    label: 'Facturas',
-    items: [
-      { label: 'Facturas de Venta', routerLink: ['/facturasventa'] },
-      { label: 'Facturas de Compra', routerLink: ['/facturascompra'] },
-      { label: 'Comprobante de Caja', routerLink: ['/comprobantecaja'] }
-    ]
-  },
-  {
-    label: 'Terceros',
-    items: [
-      { label: 'Proveedores', routerLink: ['/Proveedores'] },
-      { label: 'Clientes', routerLink: ['/Clientes'] },
-      { label: 'Colaboradores', routerLink: ['/Colaboradores'] }
-    ]
-  },  
+  menuItems: MenuItem[] = [];
 
-  {
-    label: 'Inventario',
-    items: [
-      { label: 'Inventario', routerLink: ['/inventario'] },
-    ]
-  },
+  constructor(
+    private readonly auth$: AuthService,
+    private readonly router: Router
+  ) {}
 
-    {
-    label: 'Saldo de Caja',
-    items: [
-      { label: 'Saldo de Caja', routerLink: ['/saldocaja'] },
-    ]
-  },
+  ngOnInit() {
+    this.auth$.getUserName().subscribe(name => {
+      this.userName = name ?? '';
+      this.isLogged = !!this.userName;
+    });
 
-    {
-    label: 'Productos',
-    items: [
-      { label: 'Productos', routerLink: ['/productos'] },
-
-    ]
-  },
-
-    {
-    label: 'Servicios',
-    items: [
-      { label: 'Servicios', routerLink: ['/servicios'] },
-
-    ]
-  },
-
-
-];
-
-  constructor(private readonly auth$: AuthService) {}
-
-  ngOnInit() 
-  {        
-      this.auth$.getUserName().subscribe(name => {        
-        this.userName = name!;
-        if(this.userName === null){
-          this.isLogged= false;
-        } else{
-          this.isLogged= true;
-        }        
-      });        
+    // ✅ Configuración del menú con navegación directa
+    this.menuItems = [
+      {
+        label: 'Terceros',
+        items: [
+          { label: 'Proveedores', routerLink: ['/Proveedores'], command: () => this.navigateTo('/Proveedores') },
+          { label: 'Clientes', routerLink: ['/Clientes'], command: () => this.navigateTo('/Clientes') },
+          { label: 'Colaboradores', routerLink: ['/Colaboradores'], command: () => this.navigateTo('/Colaboradores') }
+        ]
+      },
+      {
+        label: 'Productos',
+        items: [
+          { label: 'Productos', routerLink: ['/productos'], command: () => this.navigateTo('/productos') },
+        ]
+      },
+      {
+        label: 'Servicios',
+        items: [
+          { label: 'Servicios', routerLink: ['/servicios'], command: () => this.navigateTo('/servicios') },
+        ]
+      },
+      {
+        label: 'Facturas',
+        items: [
+          { label: 'Facturas de Venta', routerLink: ['/facturasventa'], command: () => this.navigateTo('/facturasventa') },
+          { label: 'Facturas de Compra', routerLink: ['/facturascompra'], command: () => this.navigateTo('/facturascompra') },
+          { label: 'Comprobante de Caja', routerLink: ['/comprobantecaja'], command: () => this.navigateTo('/comprobantecaja') }
+        ]
+      },
+      {
+        label: 'Inventario',
+        items: [
+          { label: 'Inventario', routerLink: ['/inventario'], command: () => this.navigateTo('/inventario') },
+        ]
+      },
+      {
+        label: 'Saldo de Caja',
+        items: [
+          { label: 'Saldo de Caja', routerLink: ['/caja'], command: () => this.navigateTo('/caja') },
+        ]
+      },
+    ];
   }
 
-  logout(){
+  /** 🔹 Cerrar sesión */
+  logout() {
     this.auth$.signOut();
-    this.isLogged= false;
+    this.isLogged = false;
     this.dropdownVisible = false;
   }
 
-  toggleDropdown(){
+  /** 🔹 Alternar dropdown usuario */
+  toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
 
+  /** 🔹 Mostrar/Ocultar sidebar */
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  /** 🔹 Ir al Home */
+  goHome() {
+    this.sidebarVisible = false;
+    this.router.navigate(['/home']);
+  }
+
+  /** 🔹 Navegación directa al módulo y cierre de sidebar */
+  private navigateTo(route: string) {
+    this.sidebarVisible = false;
+    this.router.navigate([route]).then(() => {
+      // Forzamos el refresco visual del módulo
+      window.dispatchEvent(new Event('resize'));
+    });
   }
 }

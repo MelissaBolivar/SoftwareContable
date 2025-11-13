@@ -139,6 +139,7 @@ namespace Contable.Api.Controllers
 
             if ((factura.Productos == null || !factura.Productos.Any()) &&
                 (factura.Servicios == null || !factura.Servicios.Any()))
+
             {
                 return BadRequest(new { mensaje = "Debes agregar al menos un producto o servicio" });
             }
@@ -155,8 +156,6 @@ namespace Contable.Api.Controllers
                     NumeroFactura = factura.NumeroFactura,
                     Observaciones = factura.Observaciones,
                     FechaRegistro = DateTime.UtcNow,
-                    CajaId = 1,
-                    InventarioId = 1,
                     Total = factura.Total
                 };
 
@@ -175,6 +174,48 @@ namespace Contable.Api.Controllers
                             PrecioUnitario = item.Precio
                         };
                         _context.DetalleProducto.Add(detalle);
+
+                        if (factura.TipoFacturaId == 1)//compra
+                        {
+
+                            var ultimoRegistroInventario = _context.Inventario.Where(x => x.Producto == item.ProductoId).OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            int unidades = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.Unidades;
+                            int precioVenta = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.PrecioVenta;
+
+                            unidades = unidades + item.Unidades;
+
+                            var inventario = new Inventario
+                            {
+                                Producto = item.ProductoId,
+                                Unidades = unidades,
+                                PrecioVenta = precioVenta,
+                                PrecioCompra = int.Parse(item.Precio.ToString()),
+                                FechaRegistro = DateTime.Now,
+                                Activo = true
+                            };
+
+                            _context.Inventario.Add(inventario);
+                        }
+                        if (factura.TipoFacturaId == 2)//venta
+                        {
+                            var ultimoRegistroInventario = _context.Inventario.Where(x => x.Producto == item.ProductoId).OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            int unidades = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.Unidades;
+                            int precioCompra = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.PrecioCompra;
+
+                            unidades = unidades - item.Unidades;
+
+                            var inventario = new Inventario
+                            {
+                                Producto = item.ProductoId,
+                                Unidades = unidades,
+                                PrecioVenta = int.Parse(item.Precio.ToString()),
+                                PrecioCompra = precioCompra,
+                                FechaRegistro = DateTime.Now,
+                                Activo = true
+                            };
+
+                            _context.Inventario.Add(inventario);
+                        }
                     }
                 }
 
@@ -260,6 +301,48 @@ namespace Contable.Api.Controllers
                         PrecioUnitario = item.Precio
                     };
                     await _context.DetalleProducto.AddAsync(detalle);
+
+                    if (factura.TipoFacturaId == 1)//compra
+                    {
+
+                        var ultimoRegistroInventario = _context.Inventario.Where(x => x.Producto == item.ProductoId).OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                        int unidades = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.Unidades;
+                        int precioVenta = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.PrecioVenta;
+
+                        unidades = unidades + item.Unidades;
+
+                        var inventario = new Inventario
+                        {
+                            Producto = item.ProductoId,
+                            Unidades = unidades,
+                            PrecioVenta = precioVenta,
+                            PrecioCompra = int.Parse(item.Precio.ToString()),
+                            FechaRegistro = DateTime.Now,
+                            Activo = true
+                        };
+
+                        _context.Inventario.Add(inventario);
+                    }
+                    if (factura.TipoFacturaId == 2)//venta
+                    {
+                        var ultimoRegistroInventario = _context.Inventario.Where(x => x.Producto == item.ProductoId).OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                        int unidades = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.Unidades;
+                        int precioCompra = ultimoRegistroInventario == null ? 0 : ultimoRegistroInventario.PrecioCompra;
+
+                        unidades = unidades - item.Unidades;
+
+                        var inventario = new Inventario
+                        {
+                            Producto = item.ProductoId,
+                            Unidades = unidades,
+                            PrecioVenta = int.Parse(item.Precio.ToString()),
+                            PrecioCompra = precioCompra,
+                            FechaRegistro = DateTime.Now,
+                            Activo = true
+                        };
+
+                        _context.Inventario.Add(inventario);
+                    }
                 }
             }
 

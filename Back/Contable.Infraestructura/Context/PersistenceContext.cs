@@ -69,19 +69,7 @@ namespace Contable.Infrastructure.Context
                 .HasOne(v => v.Anticipo)
                 .WithMany(a => a.Facturas)
                 .HasForeignKey(v => v.AnticipoId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Factura>()
-                .HasOne(c => c.Inventario)
-                .WithMany(tp => tp.Facturas)
-                .HasForeignKey(c => c.InventarioId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Factura>()
-                .HasOne(c => c.Caja)
-                .WithMany(tp => tp.Facturas)
-                .HasForeignKey(c => c.CajaId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);            
 
             modelBuilder.Entity<Usuario>()
                 .HasOne(u => u.TipoDoc)

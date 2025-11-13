@@ -58,6 +58,14 @@ namespace Contable.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            var existeTercero = await _context.Tercero
+                .AnyAsync(t => t.NumeroDoc == tercero.NumeroDoc && t.TipoTerceroId == tercero.TipoTerceroId);
+
+            if (existeTercero)
+            {
+                return BadRequest(new { mensaje = $"Ya existe un tercero con el número de documento {tercero.NumeroDoc}" });
+            }
+
             Tercero terceroAdd = new()
             {
                 TipoDocId = tercero.TipoDocId,
@@ -78,12 +86,18 @@ namespace Contable.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Tercero>> PutTercero(/*int id,*/ [FromBody] CreateTerceroDto tercero)
+        public async Task<ActionResult<Tercero>> PutTercero([FromBody] CreateTerceroDto tercero)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            if (!tercero.TerceroId.HasValue)
+            {
+                return BadRequest(new { mensaje = "El Id del tercero es obligatorio" });
+            }
+
             int id = tercero.TerceroId.Value;
 
             var actualizarTercero = await _context.Tercero.FindAsync(id);
@@ -93,11 +107,23 @@ namespace Contable.Api.Controllers
                 return NotFound(new { mensaje = $"No se encontró el Tercero con Id = {id}" });
             }
 
+            var existeOtroTercero = await _context.Tercero
+                .AnyAsync(t => t.NumeroDoc == tercero.NumeroDoc
+                            && t.TipoTerceroId == tercero.TipoTerceroId
+                            && t.TerceroId != id);
+
+            if (existeOtroTercero)
+            {
+                return BadRequest(new { mensaje = $"Ya existe otro tercero con el número de documento {tercero.NumeroDoc} para este tipo de tercero" });
+            }
+
             actualizarTercero.NumeroDoc = tercero.NumeroDoc;
             actualizarTercero.RazonSocialTercero = tercero.RazonSocialTercero;
             actualizarTercero.DireccionTercero = tercero.DireccionTercero;
             actualizarTercero.TelefonoTercero = tercero.TelefonoTercero;
             actualizarTercero.CorreoElectronicoTercero = tercero.CorreoElectronicoTercero;
+            actualizarTercero.TipoDocId = tercero.TipoDocId;
+            actualizarTercero.TipoTerceroId = tercero.TipoTerceroId;
 
             _context.Tercero.Update(actualizarTercero);
             await _context.SaveChangesAsync();
@@ -105,7 +131,6 @@ namespace Contable.Api.Controllers
             return Ok(actualizarTercero);
         }
 
-        // Soft-delete vía DELETE (mantener por compatibilidad): marca Activo = false
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteTercero(int id)
         {
@@ -123,7 +148,6 @@ namespace Contable.Api.Controllers
             return Ok(new { mensaje = "El cliente se desactivó correctamente" });
         }
 
-        // Endpoint explícito para desactivar (acepta PUT y PATCH y POST para mayor tolerancia)
         [HttpPatch("deactivate/{id}")]
         [HttpPut("deactivate/{id}")]
         [HttpPost("deactivate/{id}")]
@@ -139,7 +163,6 @@ namespace Contable.Api.Controllers
             return Ok(new { mensaje = "El cliente se desactivó correctamente" });
         }
 
-        // Reactivar (acepta PUT y PATCH y POST)
         [HttpPatch("reactivate/{id}")]
         [HttpPut("reactivate/{id}")]
         [HttpPost("reactivate/{id}")]

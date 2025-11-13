@@ -49,21 +49,21 @@ namespace Contable.Infrastructure.Migrations
                         {
                             AnticipoId = 1,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(689),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6280),
                             PorcentajeAnticipo = 0
                         },
                         new
                         {
                             AnticipoId = 2,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(691),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6282),
                             PorcentajeAnticipo = 10
                         },
                         new
                         {
                             AnticipoId = 3,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(693),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6284),
                             PorcentajeAnticipo = 30
                         });
                 });
@@ -133,17 +133,11 @@ namespace Contable.Infrastructure.Migrations
                     b.Property<int>("AnticipoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CajaId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("InventarioId")
-                        .HasColumnType("int");
 
                     b.Property<int>("NumeroFactura")
                         .HasColumnType("int");
@@ -174,10 +168,6 @@ namespace Contable.Infrastructure.Migrations
 
                     b.HasIndex("AnticipoId");
 
-                    b.HasIndex("CajaId");
-
-                    b.HasIndex("InventarioId");
-
                     b.HasIndex("ProductoId");
 
                     b.HasIndex("ServicioId");
@@ -205,13 +195,16 @@ namespace Contable.Infrastructure.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PrecioCompraInventario")
+                    b.Property<int>("PrecioCompra")
                         .HasColumnType("int");
 
-                    b.Property<int>("PrecioVentaInventario")
+                    b.Property<int>("PrecioVenta")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnidadesInventario")
+                    b.Property<int>("Producto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Unidades")
                         .HasColumnType("int");
 
                     b.HasKey("InventarioId");
@@ -277,7 +270,7 @@ namespace Contable.Infrastructure.Migrations
                             RolId = 1,
                             Activo = false,
                             DescripcionRol = "Administrador",
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(259),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6007),
                             NombreRol = "Administrador"
                         },
                         new
@@ -285,7 +278,7 @@ namespace Contable.Infrastructure.Migrations
                             RolId = 2,
                             Activo = false,
                             DescripcionRol = "Contable",
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(264),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6016),
                             NombreRol = "Contable"
                         });
                 });
@@ -391,28 +384,28 @@ namespace Contable.Infrastructure.Migrations
                         {
                             TipoDocId = 1,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(573),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6181),
                             Nombre = "Cédula de ciudadanía"
                         },
                         new
                         {
                             TipoDocId = 2,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(579),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6183),
                             Nombre = "NIT"
                         },
                         new
                         {
                             TipoDocId = 3,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(581),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6185),
                             Nombre = "Cédula de extranjería"
                         },
                         new
                         {
                             TipoDocId = 4,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(583),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6186),
                             Nombre = "Pasaporte"
                         });
                 });
@@ -444,21 +437,21 @@ namespace Contable.Infrastructure.Migrations
                         {
                             TipoFacturaId = 1,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(641),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6237),
                             Nombre = "Compra"
                         },
                         new
                         {
                             TipoFacturaId = 2,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(643),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6239),
                             Nombre = "Venta"
                         },
                         new
                         {
                             TipoFacturaId = 3,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(645),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6240),
                             Nombre = "Comprobante de caja"
                         });
                 });
@@ -490,14 +483,14 @@ namespace Contable.Infrastructure.Migrations
                         {
                             TipoPagoId = 1,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(666),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6258),
                             Nombre = "Crédito"
                         },
                         new
                         {
                             TipoPagoId = 2,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(668),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6260),
                             Nombre = "Contado"
                         });
                 });
@@ -528,21 +521,21 @@ namespace Contable.Infrastructure.Migrations
                         {
                             TipoTerceroId = 1,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(612),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6211),
                             Nombre = "Proveedor"
                         },
                         new
                         {
                             TipoTerceroId = 2,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(614),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6213),
                             Nombre = "Cliente"
                         },
                         new
                         {
                             TipoTerceroId = 3,
                             Activo = false,
-                            FechaRegistro = new DateTime(2025, 10, 22, 4, 11, 14, 832, DateTimeKind.Utc).AddTicks(616),
+                            FechaRegistro = new DateTime(2025, 10, 30, 23, 38, 4, 243, DateTimeKind.Utc).AddTicks(6214),
                             Nombre = "Colaborador"
                         });
                 });
@@ -656,18 +649,6 @@ namespace Contable.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Contable.Domain.Entities.Caja", "Caja")
-                        .WithMany("Facturas")
-                        .HasForeignKey("CajaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Contable.Domain.Entities.Inventario", "Inventario")
-                        .WithMany("Facturas")
-                        .HasForeignKey("InventarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Contable.Domain.Entities.Producto", null)
                         .WithMany("Facturas")
                         .HasForeignKey("ProductoId");
@@ -695,10 +676,6 @@ namespace Contable.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Anticipo");
-
-                    b.Navigation("Caja");
-
-                    b.Navigation("Inventario");
 
                     b.Navigation("Tercero");
 
@@ -767,21 +744,11 @@ namespace Contable.Infrastructure.Migrations
                     b.Navigation("Facturas");
                 });
 
-            modelBuilder.Entity("Contable.Domain.Entities.Caja", b =>
-                {
-                    b.Navigation("Facturas");
-                });
-
             modelBuilder.Entity("Contable.Domain.Entities.Factura", b =>
                 {
                     b.Navigation("Productos");
 
                     b.Navigation("Servicios");
-                });
-
-            modelBuilder.Entity("Contable.Domain.Entities.Inventario", b =>
-                {
-                    b.Navigation("Facturas");
                 });
 
             modelBuilder.Entity("Contable.Domain.Entities.Producto", b =>

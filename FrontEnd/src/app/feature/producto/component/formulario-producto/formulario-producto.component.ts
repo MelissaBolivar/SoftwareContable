@@ -60,8 +60,9 @@ export class FormularioProductoComponent implements OnInit, OnDestroy {
     private readonly service: ProductoService,
     private readonly messageService: MessageService
   ) {
+    // --- Ajuste: Validator para que solo acepte números ---
     this.componentForm = this.formBuilder.group({
-      codigo: ['', Validators.required],
+      codigo: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       nombre: ['', Validators.required],
       categoria: [null]
     });

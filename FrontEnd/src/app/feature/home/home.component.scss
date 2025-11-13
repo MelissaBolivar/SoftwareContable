@@ -1,0 +1,235 @@
+/* ============================================
+   💎 Money Guardian | Pantalla de Bienvenida Pro
+   ============================================ */
+
+/* ---- Fuentes ---- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root {
+  --font-primary: 'Poppins', sans-serif;
+  --font-elegant: 'Playfair Display', serif;
+  --blue-electric: #00e6ff;
+  --blue-deep: #0f172a;
+  --blue-dark: #08111f;
+}
+
+/* ---- Fondo con energía ---- */
+body,
+.welcome-container {
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at center, #0a192f 0%, #010b16 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-primary);
+  color: #e2e8f0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Efecto animado de energía (líneas luminosas) */
+.welcome-container::before,
+.welcome-container::after {
+  content: '';
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 230, 255, 0.05) 0,
+    rgba(0, 230, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  animation: moveGrid 25s linear infinite;
+  transform: rotate(15deg);
+}
+
+.welcome-container::after {
+  animation-direction: reverse;
+  opacity: 0.3;
+}
+
+@keyframes moveGrid {
+  0% {
+    transform: translateY(0) rotate(15deg);
+  }
+  100% {
+    transform: translateY(-200px) rotate(15deg);
+  }
+}
+
+/* ---- Tarjeta central ---- */
+.welcome-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(0, 230, 255, 0.15);
+  border-radius: 20px;
+  padding: 3rem 2.8rem;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0, 230, 255, 0.1);
+  max-width: 850px;
+  width: 90%;
+  animation: fadeInUp 1.4s ease both;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Efecto de brillo en bordes */
+.welcome-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(120deg, #00e6ff, #008cff, #00ffcc);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderGlow 6s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* ---- Título principal ---- */
+.welcome-title {
+  font-family: var(--font-elegant);
+  font-size: 2.8rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(0, 230, 255, 0.4);
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.welcome-title span {
+  color: var(--blue-electric);
+  background: linear-gradient(90deg, #00e6ff, #00b3ff, #00e6ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Texto descriptivo ---- */
+.welcome-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  animation: fadeIn 2s ease both;
+  max-width: 700px;
+  margin-inline: auto;
+
+  strong {
+    color: #00e6ff;
+    font-weight: 600;
+  }
+
+  em {
+    font-family: var(--font-elegant);
+    color: #7dd3fc;
+    font-style: italic;
+  }
+}
+
+/* ---- Frase motivacional ---- */
+.footer-animated {
+  font-family: var(--font-elegant);
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #f1f5f9;
+  margin-top: 2rem;
+  letter-spacing: 0.4px;
+  text-shadow: 0 0 8px rgba(0, 230, 255, 0.3);
+  position: relative;
+  animation: fadeIn 3s ease both;
+}
+
+.footer-animated .glow-left,
+.footer-animated .glow-right {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00e6ff);
+  border-radius: 2px;
+  animation: sweep 3s linear infinite;
+}
+
+.footer-animated .glow-left {
+  left: 10%;
+  animation-delay: 1s;
+}
+.footer-animated .glow-right {
+  right: 10%;
+  animation-delay: 2s;
+}
+
+@keyframes sweep {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* ---- Animaciones ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(0, 230, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(0, 230, 255, 0.6);
+  }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+  .welcome-text {
+    font-size: 1.05rem;
+  }
+  .footer-animated {
+    font-size: 1.2rem;
+  }
+}

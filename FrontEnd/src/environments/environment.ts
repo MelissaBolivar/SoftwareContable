@@ -14,6 +14,8 @@ export const environment = {
 
   // Endpoints usados por facturasventa.service.ts
   endpoint_api_Terceros: `${YARP_CEIBA_XM}${api.Terceros}`,
+  endpoint_api_Caja: `${YARP_CEIBA_XM}${api.Caja}`,
+  endpoint_api_Inventario: `${YARP_CEIBA_XM}${api.Inventario}`,
   endpoint_api_Factura: `${YARP_CEIBA_XM}${api.Factura}`,
   endpoint_api_Producto: `${YARP_CEIBA_XM}${api.Producto}`,
   endpoint_api_Servicio: `${YARP_CEIBA_XM}${api.Servicio}`,

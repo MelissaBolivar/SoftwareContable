@@ -142,7 +142,7 @@ export class FormularioFacturasCompraComponent implements OnInit, AfterViewInit 
         observaciones: this.config.data.observaciones,
         total: this.config.data.total
       });
-      debugger;
+     
       if (this.config.data.detalleProducto?.length) {
         const productosForm = this.config.data.detalleProducto.map((item: any) =>
           this.fb.group({
@@ -258,7 +258,7 @@ export class FormularioFacturasCompraComponent implements OnInit, AfterViewInit 
 
     this.loading = true;
     const formData = raw;
-    debugger;
+    
     const payload: CreateOrUpdateFacturasCompra = {
       ...(this.action === 'Actualizar' && { FacturaId: Number(this.id) }),
       Fecha: formData.fecha,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -12,8 +12,9 @@ import { HttpService } from '../../shared/Service/http-service/http.service';
 import { UserService } from '../../shared/Service/user/user.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormularioClientesComponent } from './component/formulario-clientes/formulario-clientes.component';
-import { ClienteService } from '../../shared/Service/cliente/cliente.service';
 import { Cliente } from '../../shared/interfaces/cliente.interface';
+import { ClienteService } from '../../shared/Service/cliente/cliente.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-clientes',
@@ -26,33 +27,38 @@ import { Cliente } from '../../shared/interfaces/cliente.interface';
     ButtonModule,
     CalendarModule,
     ConfirmDialogModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
   providers:[
     DialogService,
     ConfirmationService,
-    ClienteService,
+    // ClienteService se provee en root; no debe listarse aquí
     HttpService,
-    UserService
+    UserService,
+    MessageService
   ],
   templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.scss'
+  styleUrls: ['./clientes.component.scss']
 })
 export class ClientesComponent implements OnInit {
-  infoTable!: (Cliente & { tipoDocLabel?: string })[];
-  private allInfoTable: (Cliente & { tipoDocLabel?: string })[] = [];
+  @ViewChild('dt1') dt1: any;
+
+  // lista que se muestra en la tabla
+  infoTable!: Cliente[];
+  // copia completa de los datos (se usa para filtrar)
+  allInfo: Cliente[] = [];
+
+  // lista de tipos de documento (id -> nombre)
+  listTipoDocumento: { tipoDocId: number; nombre: string }[] = [];
+
   loading = true;
   ref!: DynamicDialogRef;
   filters: FieldFilter[] = [];
-
-  // Estado de filtro para mostrar activos / inactivos
-  showOnlyActive = true;
-
-  // Bindings para buscador
-  nombreFiltro = '';
-  tipoFiltro = '';
-
-  @ViewChild('searchInput', { static: false }) searchInputRef!: ElementRef<HTMLInputElement>;
+  columnFilters: Record<string, string> = {};
+  nombreFiltro: string = '';
+  tipoFiltro: any = '';
+  estadoFiltro: any = '';
 
   constructor(
     private readonly service: ClienteService,
@@ -63,216 +69,122 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit() {
     this.getinfoTable();
+    this.loadTiposDocumento();
   }
 
-  getTipoDocLabel(tipoDocId: string | number | { tipoDocId?: number, Nombre?: string } | undefined): string {
-    if (tipoDocId === null || tipoDocId === undefined) return '';
-
-    if (typeof tipoDocId === 'object') {
-      const obj = tipoDocId as { tipoDocId?: number, Nombre?: string };
-      if (obj.Nombre && String(obj.Nombre).trim() !== '') return String(obj.Nombre);
-      if (obj.tipoDocId !== undefined) tipoDocId = obj.tipoDocId;
-      else return '';
-    }
-
-    const key = String(tipoDocId).trim();
-
-    switch (key) {
-      case '1': return 'Cédula de ciudadanía';
-      case '2': return 'NIT';
-      case '3': return 'Cédula de extranjería';
-      case '4': return 'Pasaporte';
-      case 'NIT': return 'NIT';
-      case 'CC': return 'Cédula de ciudadanía';
-      case 'CEDULA': return 'Cédula de ciudadanía';
-      default: return key;
-    }
-  }
-
-  // Única implementación consolidada de getinfoTable
-  getinfoTable(showActive: boolean = this.showOnlyActive) {
-    this.loading = true;
-    const svc: any = this.service as any;
-
-    
-    // Intentar getList con filtro si lo soporta
-    if (typeof svc.getList === 'function') {
-      try {
-        const obs = svc.getList({ activo: showActive });
-        if (obs && typeof obs.subscribe === 'function') {
-          obs.subscribe({
-            next: (response: Cliente[]) => {
-              this.allInfoTable = response.map(item => ({
-                ...item,
-                tipoDocLabel: this.getTipoDocLabel((item as any).tipoDocId ?? (item as any).TipoDocId)
-              }));
-              this.applyFilters();
-              this.loading = false;
-            },
-            error: (error: any) => { this.loading = false; this.showError(error); }
-          });
-          return;
-        }
-      } catch {
-        // continue to fallback
-      }
-    }
-
-    // Fallback: traer todo y filtrar en frontend
+  // carga la lista desde el servicio y guarda una copia completa
+  getinfoTable(){
     this.service.getList().subscribe({
       next: (response: Cliente[]) => {
-        const filtered = response.filter(item => {
-          const activeProp = (item as any).Activo ?? (item as any).activo ?? (item as any).isActive ?? true;
-          const isActive = activeProp === undefined ? true : Boolean(activeProp);
-          return showActive ? isActive : !isActive;
+        // Normalizo el campo de estado para la UI sin cambiar la lógica del backend
+        // Creo un alias `estado` (boolean) a partir de Activo / activo / estado que venga
+        this.allInfo = (response || []).map(item => {
+          const activoRaw = (item as any).Activo ?? (item as any).activo ?? (item as any).estado;
+          const activoBool = activoRaw === true || activoRaw === 'true' || activoRaw === 1 || activoRaw === '1';
+          return {
+            ...item,
+            // mantenemos las propiedades originales y añadimos el alias booleano
+            Activo: activoBool,
+            estado: activoBool,
+            // normalizar id si hace falta (no rompe si ya exista)
+            TerceroId: (item as any).TerceroId ?? (item as any).terceroId
+          } as Cliente;
         });
-        this.allInfoTable = filtered.map(item => ({
-          ...item,
-          tipoDocLabel: this.getTipoDocLabel((item as any).tipoDocId ?? (item as any).TipoDocId)
-        }));
-        this.applyFilters();
+
+        this.infoTable = [...this.allInfo];
         this.loading = false;
       },
-      error: (error) => { this.loading = false; this.showError(error); }
-    });
+      error: (error) => {
+        this.loading = false;
+        this.showError(error);
+      }
+    })
   }
 
-    // Aplica filtros locales sobre allInfoTable y setea infoTable
-  applyFilters(): void {
-    const nombre = (this.nombreFiltro || '').trim().toLowerCase();
-    const tipo = (this.tipoFiltro || '').toString();
+  // carga los tipos de documento para mostrar el nombre en la tabla
+  loadTiposDocumento(): void {
+    // si el servicio no tiene el método, uso la lista semilla para no romper la UI
+    if (typeof this.service.getTiposDocumento !== 'function') {
+      this.listTipoDocumento = [
+        { tipoDocId: 1, nombre: 'Cédula de ciudadanía' },
+        { tipoDocId: 2, nombre: 'NIT' },
+        { tipoDocId: 3, nombre: 'Cédula de extranjería' },
+        { tipoDocId: 4, nombre: 'Pasaporte' }
+      ];
+      return;
+    }
 
-    this.infoTable = this.allInfoTable.filter(item => {
-      const razon = (item.razonSocialTercero || '').toString().toLowerCase();
-      const numero = (item.numeroDoc || '').toString().toLowerCase();
-      const tipoId = ((item as any).tipoDocId ?? (item as any).TipoDocId ?? '').toString();
-
-      const matchesNombre = nombre === '' || razon.includes(nombre) || numero.includes(nombre);
-      const matchesTipo = tipo === '' || tipoId === tipo;
-
-      return matchesNombre && matchesTipo;
-    });
-  }
-
-  // Alternar vista entre activos e inactivos
-  toggleActiveView(showActive: boolean) {
-    this.showOnlyActive = showActive;
-    this.getinfoTable(this.showOnlyActive);
-  }
-
-  // Desactivar cliente (soft-delete) con varios fallbacks según servicio
-  deactivate(infoComponent: Cliente) {
-    const id = Number((infoComponent as any).terceroId ?? (infoComponent as any).id);
-    this.confirmationService.confirm({
-      message: '¿Estás segura? Esta acción desactivará al cliente.',
-      header: 'Confirmar desactivación',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        const svc: any = this.service as any;
-        if (typeof svc.deactivate === 'function') {
-          svc.deactivate(id).subscribe({
-            next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente desactivado' }); this.getinfoTable(); },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo desactivar el cliente' }); }
-          });
-          return;
+    this.service.getTiposDocumento().subscribe({
+      next: (res: any[]) => {
+        this.listTipoDocumento = (res || []).map(r => ({
+          tipoDocId: r.TipoDocId ?? r.tipoDocId ?? r.id,
+          nombre: r.Nombre ?? r.nombre ?? r.name
+        }));
+        if (!this.listTipoDocumento.length) {
+          this.listTipoDocumento = [
+            { tipoDocId: 1, nombre: 'Cédula de ciudadanía' },
+            { tipoDocId: 2, nombre: 'NIT' },
+            { tipoDocId: 3, nombre: 'Cédula de extranjería' },
+            { tipoDocId: 4, nombre: 'Pasaporte' }
+          ];
         }
-        if (typeof svc.getById === 'function' && typeof svc.update === 'function') {
-          svc.getById(id).subscribe({
-            next: (existing: any) => {
-              const toUpdate = { ...existing, Activo: false };
-              svc.update(toUpdate).subscribe({
-                next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente desactivado' }); this.getinfoTable(); },
-                error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo desactivar el cliente' }); }
-              });
-            },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo obtener el cliente' }); }
-          });
-          return;
-        }
-        if (typeof svc.update === 'function') {
-          const payload: any = { TerceroId: id, Activo: false };
-          svc.update(payload).subscribe({
-            next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente desactivado' }); this.getinfoTable(); },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo desactivar el cliente' }); }
-          });
-          return;
-        }
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Operación no soportada por el servicio' });
+      },
+      error: () => {
+        this.listTipoDocumento = [
+          { tipoDocId: 1, nombre: 'Cédula de ciudadanía' },
+          { tipoDocId: 2, nombre: 'NIT' },
+          { tipoDocId: 3, nombre: 'Cédula de extranjería' },
+          { tipoDocId: 4, nombre: 'Pasaporte' }
+        ];
       }
     });
   }
 
-  reactivate(infoComponent: Cliente) {
-    const id = Number((infoComponent as any).terceroId ?? (infoComponent as any).id);
-    this.confirmationService.confirm({
-      message: '¿Deseas reactivar este cliente?',
-      header: 'Confirmar reactivación',
-      icon: 'pi pi-check',
-      accept: () => {
-        const svc: any = this.service as any;
-        if (typeof svc.reactivate === 'function') {
-          svc.reactivate(id).subscribe({
-            next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente reactivado' }); this.getinfoTable(); },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reactivar el cliente' }); }
-          });
-          return;
-        }
-        if (typeof svc.getById === 'function' && typeof svc.update === 'function') {
-          svc.getById(id).subscribe({
-            next: (existing: any) => {
-              const toUpdate = { ...existing, Activo: true };
-              svc.update(toUpdate).subscribe({
-                next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente reactivado' }); this.getinfoTable(); },
-                error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reactivar el cliente' }); }
-              });
-            },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo obtener el cliente' }); }
-          });
-          return;
-        }
-        if (typeof svc.update === 'function') {
-          const payload: any = { TerceroId: id, Activo: true };
-          svc.update(payload).subscribe({
-            next: () => { this.messageService.add({ severity: 'success', summary: 'Listo', detail: 'Cliente reactivado' }); this.getinfoTable(); },
-            error: () => { this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo reactivar el cliente' }); }
-          });
-          return;
-        }
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Operación no soportada por el servicio' });
-      }
-    });
+    // devuelve el nombre del tipo por su id; si no lo encuentra, muestra el id
+  getTipoDocLabel(id: number | string): string {
+    if (id == null) return '';
+    const found = this.listTipoDocumento.find(x => String(x.tipoDocId) === String(id));
+    return found ? found.nombre : String(id);
+  }
+
+  // Nota: la acción "eliminar" no aplica en este módulo.
+  // Mantengo un helper que delega a desactivar para compatibilidad con botones antiguos
+  delete(infoComponent: Cliente) {
+    this.desactivar(infoComponent);
   }
 
   new(){
     this.ref = this.dialogService.open(FormularioClientesComponent, {
-      data: { action:'crear' },
+      data: { action:'Crear' },
       width: '90%',
       height: '100%',
       contentStyle: { "max-height": "700px", "overflow": "auto" },
       dismissableMask: true
     });
-    // this.ref.onClose.subscribe(() => { this.getinfoTable(); });
+
+    this.ref.onClose.subscribe(() => {
+      this.getinfoTable();
+    });
   }
 
   edit(infoComponent: Cliente){
     this.ref = this.dialogService.open(FormularioClientesComponent, {
       data: {
         action:'actualizar',
-        id: (infoComponent as any).terceroId ?? (infoComponent as any).id ?? '',
-        tipoDocId: (infoComponent as any).tipoDocId ?? (infoComponent as any).TipoDocId ?? '',
-        tipoDocLabel: (infoComponent as any).tipoDocLabel ?? this.getTipoDocLabel((infoComponent as any).tipoDocId ?? (infoComponent as any).TipoDocId),
-        userId: (infoComponent as any).userId ?? '',
-        userName: (infoComponent as any).userName ?? '',
-        expenseTypeId: (infoComponent as any).expenseTypeId ?? undefined,
-        expenseTypeName: (infoComponent as any).expenseTypeName ?? undefined,
-        month: (infoComponent as any).month ?? undefined,
-        year: (infoComponent as any).year ?? undefined,
-        amount: (infoComponent as any).amount ?? undefined,
-        numeroDoc: (infoComponent as any).numeroDoc ?? (infoComponent as any).NumeroDoc ?? '',
-        razonSocialTercero: (infoComponent as any).razonSocialTercero ?? (infoComponent as any).RazonSocialTercero ?? '',
-        direccionTercero: (infoComponent as any).direccionTercero ?? (infoComponent as any).DireccionTercero ?? '',
-        telefonoTercero: (infoComponent as any).telefonoTercero ?? (infoComponent as any).TelefonoTercero ?? '',
-        correoElectronicoTercero: (infoComponent as any).correoElectronicoTercero ?? (infoComponent as any).CorreoElectronicoTercero ?? ''
+        id: (infoComponent as any).TerceroId ?? (infoComponent as any).terceroId,
+        tipoDocId: infoComponent.tipoDocId,
+        userId: (infoComponent as any).userId,
+        userName: (infoComponent as any).userName,
+        expenseTypeId: (infoComponent as any).expenseTypeId,
+        expenseTypeName: (infoComponent as any).expenseTypeName,
+        month: (infoComponent as any).month,
+        year: (infoComponent as any).year,
+        amount: (infoComponent as any).amount,
+        numeroDoc: infoComponent.numeroDoc,
+        razonSocialTercero: infoComponent.razonSocialTercero,
+        direccionTercero: infoComponent.direccionTercero,
+        telefonoTercero: infoComponent.telefonoTercero,
+        correoElectronicoTercero: infoComponent.correoElectronicoTercero,
       },
       width: '90%',
       height: '100%',
@@ -281,56 +193,138 @@ export class ClientesComponent implements OnInit {
     });
 
     this.ref.onClose.subscribe(() => {
-      this.getinfoTable(this.showOnlyActive);
+      this.getinfoTable();
     });
-  }
-
-  // Normaliza distintas formas de representar "activo"
-  getIsActive(item: any): boolean {
-    const v = item?.Activo ?? item?.activo ?? item?.isActive ?? false;
-    return v === true || v === 'true' || v === 1 || v === '1';
-  }
-
-  getActiveLabel(item: any): string {
-    return this.getIsActive(item) ? 'Activo' : 'Inactivo';
   }
 
   onColumnFilter(event: Event, field: string) {
     const input = event.target as HTMLInputElement;
-    const value = input?.value?.trim() ?? '';
+    const value = input.value.trim();
 
-    const data = { field: field, value: value };
+    const data = {
+      field: field,
+      value : value
+    }
 
     const indiceExist = this.filters.findIndex(item => item.field === data.field);
-    if(indiceExist !== -1) { this.filters.splice(indiceExist, 1); }
-    if(data.value){ this.filters.push(data); }
+
+    if(indiceExist !== -1) {
+      this.filters.splice(indiceExist, 1);
+    }
+
+    if(data.value){
+      this.filters.push(data);
+    }
+
+    // Guardar para uso por lógica personalizada
+    this.columnFilters[field] = value;
 
     this.getinfoTable();
   }
 
-  // focus del botón lupa: usa ViewChild si está disponible
-  focusBusqueda(): void {
-    if (this.searchInputRef && this.searchInputRef.nativeElement) {
-      this.searchInputRef.nativeElement.focus();
-      this.searchInputRef.nativeElement.select();
-    } else {
-      const el = document.getElementById('searchInput') as HTMLInputElement | null;
-      if (el) { el.focus(); el.select(); }
+  onTipoFilter(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.tipoFiltro = value;
+    if (this.dt1 && (this.dt1 as any).filter) {
+      (this.dt1 as any).filter(value, 'tipoDocId', 'contains');
+      return;
+    }
+    this.getinfoTable();
+  }
+
+onEstadoFilter(event: Event): void {
+  const select = event.target as HTMLSelectElement;
+
+  // Intento obtener la opción real seleccionada
+  const selectedIndex = select.selectedIndex;
+  const optionEl = select.options && select.options[selectedIndex];
+  let filterValue: boolean | null = null;
+
+  // Normalizar distintos formatos: booleano, 'true'/'false' o ''
+  if (optionEl) {
+    const optVal = optionEl.value;
+    if (optVal === '') {
+      filterValue = null;
+    } else if (optVal === 'true' || optVal === 'false') {
+      filterValue = optVal === 'true';
     }
   }
 
-  // Filtrado usado por el input y select del header
-  filtrarClientes(): void {
-    this.applyFilters();
+  // Si aún no se determinó (por ngValue que a veces no aparece como string), intentar otras fuentes
+  if (filterValue === null) {
+    const raw = select.value;
+    const selOpt = (select as any).selectedOptions && (select as any).selectedOptions[0];
+    const candidate = selOpt ? selOpt.value : raw;
+
+    if (candidate === '') {
+      filterValue = null;
+    } else if (candidate === 'true' || candidate === 'false') {
+      filterValue = candidate === 'true';
+    } else {
+      // último recurso: si viene string 'true'/'false' en raw
+      if (raw === 'true' || raw === 'false') {
+        filterValue = raw === 'true';
+      } else {
+        filterValue = null;
+      }
+    }
   }
+
+  this.estadoFiltro = filterValue;
+
+  // Aplicar filtro a p-table (si está disponible)
+  if (this.dt1 && (this.dt1 as any).filter) {
+    if (filterValue === null) {
+      (this.dt1 as any).filter(null, 'Activo', 'equals');
+    } else {
+      (this.dt1 as any).filter(filterValue, 'Activo', 'equals');
+    }
+    return;
+  }
+
+  // Filtro local cuando no se usa p-table.filter
+  if (filterValue === null) {
+    this.infoTable = [...this.allInfo];
+  } else {
+    this.infoTable = this.allInfo.filter(i => {
+      const estadoBackend = (i as any).estado ?? (i as any).Activo;
+      const estadoBool = estadoBackend === true || estadoBackend === 'true' || estadoBackend === 1 || estadoBackend === '1';
+      return estadoBool === filterValue;
+    });
+  }
+}
+
+  // FILTRO GLOBAL SIMPLE (por nombre, número o correo)
+  onGlobalFilter(event: Event): void {
+    // tomo el texto que escribiste y lo dejo en minúsculas para comparar bien
+    const val = (event.target as HTMLInputElement).value?.trim().toLowerCase() ?? '';
+    this.nombreFiltro = val;
+
+    // si el texto está vacío, muestro todo otra vez
+    if (!val) {
+      this.infoTable = [...this.allInfo];
+      return;
+    }
+
+    // filtro la lista local: busco coincidencias en nombre, número o correo
+    this.infoTable = this.allInfo.filter(item => {
+      const nombre = (item.razonSocialTercero ?? '').toString().toLowerCase();
+      const numero = (item.numeroDoc ?? '').toString().toLowerCase();
+      const correo = (item.correoElectronicoTercero ?? '').toString().toLowerCase();
+
+      return nombre.includes(val) || numero.includes(val) || correo.includes(val);
+    });
+  }
+  // --- fin handlers ---
 
   private showError(error: any): void {
     if(error?.status === 400)
     {
       this.messageService.add({
+        key: 'alerta',
         severity: 'error',
         summary: 'Error',
-        detail: error.error?.message ?? error.message ?? 'Error'
+        detail: error.error?.message ?? 'Error servidor',
       });
     }
     else{
@@ -338,7 +332,87 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  private showMessage(severity: 'success' | 'info' | 'warning' | 'error', summary: string, detail: string): void {
-    this.messageService.add({ severity, summary, detail });
+  private showMessage(severity: 'success' | 'info' | 'warn' | 'error', summary: string, detail: string): void {
+    this.messageService.add({
+      key: 'alerta',
+      severity,
+      summary,
+      detail
+    });
+  }
+
+  /**
+   * Actualiza el estado localmente en allInfo e infoTable.
+   * Úsala tras reactivar/desactivar si no quieres recargar toda la lista.
+   */
+  private updateLocalEstado(terceroId: number, activo: boolean): void {
+    const idxAll = this.allInfo.findIndex(i => Number((i as any).TerceroId ?? (i as any).terceroId) === terceroId);
+    if (idxAll !== -1) {
+      this.allInfo[idxAll] = { ...this.allInfo[idxAll], Activo: activo, estado: activo } as Cliente;
+    }
+
+    const idxView = this.infoTable.findIndex(i => Number((i as any).TerceroId ?? (i as any).terceroId) === terceroId);
+    if (idxView !== -1) {
+      this.infoTable[idxView] = { ...this.infoTable[idxView], Activo: activo, estado: activo } as Cliente;
+    }
+  }
+
+  // --- métodos para activar / desactivar (llaman al servicio y actualizan UI) ---
+
+  desactivar(infoComponent: Cliente): void {
+    const id = Number((infoComponent as any).TerceroId ?? (infoComponent as any).terceroId);
+    if (isNaN(id)) return;
+
+    // Preferimos llamar al endpoint explícito de desactivación si existe
+    if (typeof this.service.deactivate === 'function') {
+      this.service.deactivate(id).subscribe({
+        next: () => {
+          this.showMessage('success', 'Cliente', 'Cliente Desactivado Correctamente');
+          this.updateLocalEstado(id, false);
+        },
+        error: () => this.showMessage('error', 'Error', 'No se pudo desactivar el cliente')
+      });
+      return;
+    }
+
+    // Fallback: usar delete (soft-delete) si no hay endpoint específico
+    this.service.delete(id).subscribe({
+      next: () => {
+        this.showMessage('success', 'Cliente', 'Cliente Desactivado Correctamente');
+        this.updateLocalEstado(id, false);
+      },
+      error: () => this.showMessage('error', 'Error', 'No se pudo desactivar el cliente')
+    });
+  }
+
+  reactivar(infoComponent: Cliente): void {
+    const id = Number((infoComponent as any).TerceroId ?? (infoComponent as any).terceroId);
+    if (isNaN(id)) return;
+
+    if (typeof this.service.reactivate === 'function') {
+      this.service.reactivate(id).subscribe({
+        next: () => {
+          this.showMessage('success', 'Cliente', 'Cliente Activado Correctamente');
+          this.updateLocalEstado(id, true);
+        },
+        error: () => this.showMessage('error', 'Error', 'No se pudo reactivar el cliente')
+      });
+      return;
+    }
+
+    // Si no existe reactivar, intentar llamar a un endpoint genérico (PUT/PATCH) si lo tienes implementado
+    if (typeof this.service.activate === 'function') {
+      this.service.activate(id).subscribe({
+        next: () => {
+          this.showMessage('success', 'Cliente', 'Cliente Activado Correctamente');
+          this.updateLocalEstado(id, true);
+        },
+        error: () => this.showMessage('error', 'Error', 'No se pudo reactivar el cliente')
+      });
+      return;
+    }
+
+    // Si no hay endpoint de reactivación, recargar lista completa como fallback
+    this.getinfoTable();
   }
 }

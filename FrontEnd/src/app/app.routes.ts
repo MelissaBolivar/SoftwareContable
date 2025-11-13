@@ -37,6 +37,11 @@ export const routes: Routes = [
     loadComponent: () => import('./feature/comprobantecaja/comprobantecaja.component').then(m => m.ComprobantecajaComponent),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'caja',
+    loadComponent: () => import('./feature/caja/caja.component').then(m => m.CajaComponent),
+    canActivate: [AuthGuard]
+  },
 
 
   {
@@ -49,6 +54,14 @@ export const routes: Routes = [
     loadComponent: () => import('./feature/servicio/servicio.component').then(m => m.ServicioComponent),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'inventario',
+    loadComponent: () => import('./feature/inventario/inventario.component').then(m => m.inventarioComponent),
+    canActivate: [AuthGuard]
+  },
+
+
+
   {
     path: 'login',
     loadComponent: () => import('./core/component/login/login.component').then(m => m.LoginComponent)

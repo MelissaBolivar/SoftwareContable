@@ -1,0 +1,56 @@
+<!-- 💎 Money Guardian - Saldo de Caja -->
+<div class="caja-wrapper">
+  <div class="caja-panel">
+    <header class="caja-header">
+      <span class="caja-icon">💰</span>
+      <h2>Saldo de Caja</h2>
+    </header>
+
+    <!-- 🔍 FILTRO DE BÚSQUEDA -->
+    <div class="caja-filtro">
+      <input
+        type="text"
+        pInputText
+        placeholder="Buscar por código o producto..."
+        (input)="onGlobalFilter($event, dt1)"
+        class="w-full"
+      />
+    </div>
+
+    <section class="caja-body">
+      <p-table
+        #dt1
+        [value]="infoTable"
+        dataKey="id"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10]"
+        [loading]="loading"
+        [paginator]="true"
+        class="caja-table"
+        [globalFilterFields]="['codigo', 'nombre']"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="codigo">
+              CÓDIGO <p-sortIcon field="codigo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombre">
+              PRODUCTO <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+            <th pSortableColumn="saldoCaja">
+              SALDO CAJA <p-sortIcon field="saldoCaja"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-infoComponent>
+          <tr>
+            <td>{{ infoComponent.codigo }}</td>
+            <td>{{ infoComponent.nombre }}</td>
+            <td>{{ infoComponent.saldoCaja | currency:'COP':'symbol':'1.0-0' }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </section>
+  </div>
+</div>

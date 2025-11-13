@@ -17,7 +17,7 @@ direccionTercero?: string;
 telefonoTercero: string; 
 correoElectronicoTercero: string; 
 fechaRegistro: string; 
-estado: string; 
+estado?: boolean;
 ventas: string; 
 tipoDeIdentificacion: string;
 }

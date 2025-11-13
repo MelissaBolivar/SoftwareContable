@@ -1,12 +1,53 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Software\\SoftwareContable\\Back\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 186,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CajaController.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Controllers\\CajaController.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
+              "RelativeToolTip": "Contable.Api\\Controllers\\CajaController.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAkwA0AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T23:32:00.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TerceroController.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\TerceroController.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Controllers\\TerceroController.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\TerceroController.cs",
+              "RelativeToolTip": "Contable.Api\\Controllers\\TerceroController.cs",
+              "ViewState": "AgIAAKcAAAAAAAAAAADwv7gAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-12T23:18:30.547Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

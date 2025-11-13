@@ -34,12 +34,12 @@ import { CreateOrUpdateCliente } from '../../../../shared/interfaces/CreateOrUpd
   templateUrl: './formulario-clientes.component.html',
   styleUrl: './formulario-clientes.component.scss'
 })
-export class FormularioClientesComponent implements OnInit {
+export class FormularioClientesComponent {
   componentForm: FormGroup;
   requiredField = 'Campo obligatorio';
   headerName = '';
   action = '';
-  id = '';
+  id= '';
   loading = false;
 
   possitiveNumberInt = 'Debe ser un número entero positivo';
@@ -60,53 +60,46 @@ export class FormularioClientesComponent implements OnInit {
   ) {
     this.componentForm = this.formBuilder.group({
       tipoDocumentoId: ['', Validators.required],
-      numeroDocumento: ['', [Validators.required, Validators.pattern(RegularExpressions.NUMERIC)]],
-      razonSocial: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(120)]],
+      numeroDocumento: ['', Validators.required],
+      razonSocial: ['', Validators.required],
       direccion: ['', Validators.required],
-      telefono: ['', [Validators.required, Validators.pattern(RegularExpressions.NUMERIC)]],
-      correo: ['', [Validators.required, Validators.email]],
-      // Controles adicionales usados en patchValue desde el diálogo
-      month: [''],
-      year: [''],
-      amount: [''],
-      userId: ['']
+      telefono: ['', Validators.required],
+      correo: ['', Validators.required],
     });
   }
 
   ngOnInit() {
     this.loadInformation();
 
-    this.action = this.config?.data?.action ?? '';
-
-    this.headerName = this.config?.data?.name ?? '';
-
-    if (this.action === 'actualizar') {
-      this.id = String(this.config?.data?.id ?? '');
+    this.action = this.config.data.action;
+    this.headerName = this.config.data.name;
+    if (this.action === 'actualizar'){
+      this.id = this.config.data.id;
       this.componentForm.patchValue({
-        month: this.config?.data?.month ?? '',
-        year: this.config?.data?.year ?? '',
-        amount: this.config?.data?.amount ?? '',
-        userId: this.config?.data?.userId ?? '',
-        numeroDocumento: this.config?.data?.numeroDoc ?? '',
-        tipoDocumentoId: this.config?.data?.tipoDocId !== undefined ? Number(this.config.data.tipoDocId) : '',
-        razonSocial: this.config?.data?.razonSocialTercero ?? '',
-        direccion: this.config?.data?.direccionTercero ?? '',
-        telefono: this.config?.data?.telefonoTercero ?? '',
-        correo: this.config?.data?.correoElectronicoTercero ?? ''
+        month: this.config.data.month,
+        year: this.config.data.year,
+        amount: this.config.data.amount,
+        userId: this.config.data.userId,
+        numeroDocumento: this.config.data.numeroDoc,
+        tipoDocumentoId: parseInt(this.config.data.tipoDocId),
+        razonSocial: this.config.data.razonSocialTercero,
+        direccion: this.config.data.direccionTercero,
+        telefono: this.config.data.telefonoTercero,
+        correo: this.config.data.correoElectronicoTercero
       });
     }
   }
 
-  loadInformation() {
+  loadInformation(){
     this.getUser();
   }
 
-  getUser() {
+  getUser(){
     this.loading = true;
     this.userService.getListTiposDocumentos().subscribe({
       next: response => {
         this.loading = false;
-        this.listUser = response ?? [];
+        this.listUser = response;
       },
       error: (error) => {
         this.loading = false;
@@ -116,35 +109,40 @@ export class FormularioClientesComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.componentForm.valid) {
-      this.componentForm.markAllAsTouched();
-      return;
-    }
+    if (this.componentForm.valid) {
+      this.loading = true;
 
-    this.loading = true;
+      // Normalizar NumeroDocumento antes de enviar
+      const normalizedNumero = this.normalizeNumeroDocumento(this.componentForm.value.numeroDocumento);
+      // Actualizar el value en el form para que quede consistente visualmente
+      this.componentForm.controls['numeroDocumento'].setValue(normalizedNumero);
 
-    if (this.action === 'crear') {
-      const createParser = this.createParserFormData();
-      this.service.create(createParser).subscribe({
-        next: () => {
-          this.loading = false;
-          this.onClose();
-        }, error: (error) => {
-          this.loading = false;
-          this.showError(error);
-        }
-      });
+      if(this.action === 'Crear') {
+        const createParser = this.createParserFormData();
+        this.service.create(createParser).subscribe({
+          next: () => {
+            this.loading = false;
+            this.onClose();
+          }, error: (error) => {
+            this.loading = false;
+            this.handleApiError(error, 'numeroDocumento');
+          }
+        });
+      } else{
+        const updateParser = this.updateParserFormData();
+        this.service.update(updateParser).subscribe({
+          next: () => {
+            this.loading = false;
+            this.onClose();
+          }, error: (error) => {
+            this.loading = false;
+            this.handleApiError(error, 'numeroDocumento');
+          }
+        });
+      }
     } else {
-      const updateParser = this.updateParserFormData();
-      this.service.update(updateParser).subscribe({
-        next: () => {
-          this.loading = false;
-          this.onClose();
-        }, error: (error) => {
-          this.loading = false;
-          this.showError(error);
-        }
-      });
+      // Marcar todos como touched para mostrar errores en el form si el usuario intenta avanzar
+      this.componentForm.markAllAsTouched();
     }
   }
 
@@ -153,8 +151,9 @@ export class FormularioClientesComponent implements OnInit {
     this.ref.close();
   }
 
-  private createParserFormData(): CreateOrUpdateCliente {
+  private createParserFormData(): CreateOrUpdateCliente{
     return {
+      TerceroId: null,
       TipoDocId: this.componentForm.value.tipoDocumentoId,
       NumeroDoc: this.componentForm.value.numeroDocumento,
       RazonSocialTercero: this.componentForm.value.razonSocial,
@@ -162,12 +161,12 @@ export class FormularioClientesComponent implements OnInit {
       TelefonoTercero: this.componentForm.value.telefono,
       CorreoElectronicoTercero: this.componentForm.value.correo,
       TipoTerceroId: 2
-    };
+    }
   }
 
-  private updateParserFormData(): CreateOrUpdateCliente {
+  private updateParserFormData():CreateOrUpdateCliente{
     return {
-      TerceroId: this.id,
+      TerceroId: Number.parseInt(this.id),
       TipoDocId: this.componentForm.value.tipoDocumentoId,
       NumeroDoc: this.componentForm.value.numeroDocumento,
       RazonSocialTercero: this.componentForm.value.razonSocial,
@@ -175,22 +174,64 @@ export class FormularioClientesComponent implements OnInit {
       TelefonoTercero: this.componentForm.value.telefono,
       CorreoElectronicoTercero: this.componentForm.value.correo,
       TipoTerceroId: 2
-    };
+    }
   }
 
-  private showError(error: any): void {
-    if (error?.status === 400) {
+  /**
+   * Normaliza el número de documento:
+   * - trim()
+   * - convertir a mayúsculas para evitar diferencias de casing
+   */
+  private normalizeNumeroDocumento(value: string | null | undefined): string {
+    if (!value) return '';
+    return value.toString().trim().toUpperCase();
+  }
+
+  /**
+   * Manejo de errores del API: si la API devuelve 400 con mensaje de
+   * unicidad ("mensaje"), mostramos alert y establecemos error en el campo correspondiente
+   */
+  private handleApiError(error: any, controlName: string): void {
+    // Primero intenta mapear el mensaje enviado por el API (usamos 'mensaje' según tu backend)
+    const apiMessage = error?.error?.mensaje ?? error?.error?.message ?? null;
+
+    if (error?.status === 400 && apiMessage) {
+      // Poner error en el control para que el formulario no permita avanzar
+      const control = this.componentForm.get(controlName);
+      if (control) {
+        control.setErrors({ exists: true });
+        control.markAsTouched();
+      }
+
+      // Mostrar toast con el mensaje enviado por el backend
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: error.error?.message ?? 'Error del servidor',
+        detail: apiMessage,
+      });
+      return;
+    }
+
+    // Si no es un 400 esperado, delegar a showError para mensajes genéricos
+    this.showError(error);
+  }
+
+  private showError(error: any): void {
+    const apiMessage = error?.error?.mensaje ?? error?.error?.message ?? null;
+
+    if (apiMessage) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: apiMessage,
       });
     } else {
       this.showMessage('error', 'Error', 'Algo salió mal, intente de nuevo');
     }
   }
 
-  private showMessage(severity: 'success' | 'info' | 'warning' | 'error', summary: string, detail: string): void {
+  private showMessage(severity: 'success' | 'info' | 'warn' | 'error', summary: string, detail: string): void {
     this.messageService.add({ severity, summary, detail });
   }
 }
+

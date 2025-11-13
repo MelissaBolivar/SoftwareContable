@@ -1,158 +1,120 @@
-<p-table
-    #dt1
-    [value]="infoTable"
-    dataKey="id"
-    [rows]="5"
-    [rowsPerPageOptions]="[5, 10, 15]"
-    [loading]="loading"
-    [paginator]="true"
-    class="fixed-height-table"
->
-    <ng-template pTemplate="caption">
-        <div class="flex w-full p-1 ">
-            <br><br>     
-            <p-button label="Nuevo proveedor"  severity="success"   (keydown.enter)="new()"  (click)="new()"/>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th class="th-min-width" pSortableColumn="Id" id="IdTh">
-                <div class="flex align-items-center">
-                    Id
-                </div>           
-            </th>
-            <th class="th-min-width" pSortableColumn="userName" id="userNameTh">
-                <div class="flex align-items-center">
-                    Tipo de documento
-                </div>
-            </th>
-            <th class="th-min-width" pSortableColumn="expenseTyipeName" id="expenseTyipeNameTh">
-                <div class="flex align-items-center">
-                    Numero de documento
-                </div>
-            </th>
-            <th class="th-min-width" pSortableColumn="month" id="monthTh">
-                <div class="flex align-items-center">
-                    Razon social
-                </div>
-            </th>
-            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
-                <div class="flex align-items-center">
-                    Direccion
-                </div>
-            </th>
-            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
-                <div class="flex align-items-center">
-                    Telefono
-                </div>
-            </th>
-            <th class="th-min-width" pSortableColumn="amount" id="amountTh">
-                <div class="flex align-items-center">
-                    Correo electronico
-                </div>
-            </th>
-                                                                       
-            <th class="th-min-width" id="editTh">
-                <div class="flex align-items-center">                
-                </div>
-            </th>                
-            <th class="th-min-width" id="deleteTh">
-                <div class="flex align-items-center">                
-                </div>
-            </th>                
-        </tr>
-        <tr>
-            <th class="th-min-width" id="filterIdTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'Id')" placeholder="Id" />
-                </span>
-            </th>
-            <th class="th-min-width" id="filterUserNameTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'UserName')" placeholder="Tipo de documento" />
-                </span>
-            </th>            
-            <th class="th-min-width" id="filterExpenseTypeNameTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'ExpenseTypeName')" placeholder="Número de Documento" />
-                </span>
-            </th>         
-            <th class="th-min-width" id="filterMonthTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'Month')" placeholder="Razón Social" />
-                </span>
-            </th>         
- 
-            <th class="th-min-width" id="filterAmountTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Direccion" />
-                </span>
-            </th>       
-             <th class="th-min-width" id="filterAmountTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Telefono" />
-                </span>
-            </th>  
-             <th class="th-min-width" id="filterAmountTh">
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input type="text" (input)="onColumnFilter($event, 'Amount')" placeholder="Correo Electronico" />
-                </span>
-            </th>  
+<main class="clientes-container">
+  <section class="clientes-card">
+    <!-- ENCABEZADO -->
+    <header class="clientes-header">
+      <div class="header-left">
+        <h2>📋 Directorio de Proveedores</h2>
+        <p class="subtitle">Gestiona, busca y actualiza tus proveedores fácilmente</p>
+      </div>
+      <div class="header-right">
+        <button type="button" class="btn-primary" (click)="new()">
+          <i class="pi pi-briefcase"></i> Nuevo Proveedor
+        </button>
+      </div>
+    </header>
 
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-infoComponent>
-        <tr>
-            <td>
-                {{ infoComponent.terceroId }}
+    <!-- FILTROS -->
+    <div class="clientes-filtros">
+      <div class="filtro-busqueda">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          placeholder="Buscar por nombre, documento o correo"
+          (input)="onGlobalFilter($event)"
+        />
+      </div>
+
+      <div class="filtro-selects">
+        <select (change)="onTipoFilter($event)">
+          <option value="">Todos los tipos</option>
+          <option value="1">Cédula de ciudadanía</option>
+          <option value="2">NIT</option>
+          <option value="3">Cédula de extranjería</option>
+          <option value="4">Pasaporte</option>
+        </select>
+
+      <select (change)="onEstadoFilter($event)">
+  <option value="">Todos los estados</option>
+  <option value="true">Activo</option>
+  <option value="false">Inactivo</option>
+</select>
+      </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="clientes-tabla fade-in">
+      <p-table
+        #dt1
+        [value]="infoTable"
+        dataKey="TerceroId"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10]"
+        [loading]="loading"
+        [paginator]="true"
+        styleClass="elegant-table fixed-height-table"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="tipoDocId">Tipo de documento <p-sortIcon field="tipoDocId"></p-sortIcon></th>
+            <th pSortableColumn="numeroDoc">Número de documento <p-sortIcon field="numeroDoc"></p-sortIcon></th>
+            <th pSortableColumn="razonSocialTercero">Razón social <p-sortIcon field="razonSocialTercero"></p-sortIcon></th>
+            <th pSortableColumn="direccionTercero">Dirección <p-sortIcon field="direccionTercero"></p-sortIcon></th>
+            <th pSortableColumn="telefonoTercero">Teléfono <p-sortIcon field="telefonoTercero"></p-sortIcon></th>
+            <th pSortableColumn="correoElectronicoTercero">Correo electrónico <p-sortIcon field="correoElectronicoTercero"></p-sortIcon></th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-infoComponent>
+          <tr class="fila-hover">
+            <!-- Aquí mostramos el nombre del tipo en vez del id -->
+            <td>{{ getTipoDocLabel(infoComponent.tipoDocId) }}</td>
+            <td>{{ infoComponent.numeroDoc }}</td>
+            <td>{{ infoComponent.razonSocialTercero }}</td>
+            <td>{{ infoComponent.direccionTercero }}</td>
+            <td>{{ infoComponent.telefonoTercero }}</td>
+            <td>{{ infoComponent.correoElectronicoTercero }}</td>
+
+            <!-- Celda Estado: evalúa booleano estado o Activo -->
+            <td [ngClass]="(infoComponent.estado === true || infoComponent.Activo === true) ? 'estado-activo' : 'estado-inactivo'">
+              {{ (infoComponent.estado === true || infoComponent.Activo === true) ? 'Activo' : 'Inactivo' }}
             </td>
-            <td>
-                {{ infoComponent.tipoDocId }}
-            </td>                    
-            <td>
-                {{ infoComponent.numeroDoc }}
-            </td>                       
-            <td>
-                {{ infoComponent.razonSocialTercero }}
-            </td>                       
-            <td>
-                {{ infoComponent.direccionTercero }}
-            </td>                       
-                      
-            <td>
-                {{ infoComponent.telefonoTercero }}
-            </td>                       
-            <td>
-                {{ infoComponent.correoElectronicoTercero }}
-            </td>                       
-            <td>
-                <p-button label="Editar" [text]="true" severity="warning" 
-                    (click)="edit(
-                        infoComponent
-                    )"
-                    (keydown.enter)="edit(
-                        infoComponent
-                    )"
-                />
+
+            <!-- Acciones: botón único que cambia aspecto y acción según estado -->
+            <td class="acciones">
+              <div class="acciones-botones" role="group" aria-label="Acciones proveedor">
+                <!-- Toggle activar/desactivar -->
+                <button
+                  class="btn-table"
+                  [ngClass]="(infoComponent.estado === true || infoComponent.Activo === true) ? 'delete' : 'activate'"
+                  (click)="(infoComponent.estado === true || infoComponent.Activo === true) ? desactivar(infoComponent) : reactivar(infoComponent)"
+                  [title]="(infoComponent.estado === true || infoComponent.Activo === true) ? 'Desactivar proveedor' : 'Activar proveedor'"
+                  type="button"
+                  [attr.aria-pressed]="(infoComponent.estado === true || infoComponent.Activo === true) ? 'true' : 'false'"
+                >
+                  <i class="pi" [ngClass]="(infoComponent.estado === true || infoComponent.Activo === true) ? 'pi-times' : 'pi-check'"></i>
+                </button>
+
+                <!-- EDITAR -->
+                <button class="btn-table edit" (click)="edit(infoComponent)" (keydown.enter)="edit(infoComponent)" title="Editar proveedor" type="button">
+                  <i class="pi pi-pencil"></i>
+                </button>
+              </div>
             </td>
-            <td>
-                <p-button label="Eliminar" [text]="true" severity="danger"  (click)="delete(
-                        infoComponent
-                    )" />
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="7">No se encontro información.</td>
-        </tr>
-    </ng-template>
-</p-table>
-<p-confirmDialog></p-confirmDialog>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8" class="no-data">No se encontró información.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- DIALOGOS -->
+    <p-confirmDialog></p-confirmDialog>
+    <p-toast position="top-center" key="alerta"></p-toast>
+  </section>
+</main>

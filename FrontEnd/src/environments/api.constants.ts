@@ -8,6 +8,8 @@ export const api = {
 
   // ✅ Endpoints para los 11 campos de factura
   Terceros: '/api/Tercero',       // TerceroId
+  Caja: '/api/Caja',       // CajaId
+  Inventario: '/api/Inventario',       // TerceroId
   Factura: '/api/Factura',        // FacturaId
   Producto: '/api/Producto',      // ProductoId
   Servicio: '/api/Servicio',      // ServicioId

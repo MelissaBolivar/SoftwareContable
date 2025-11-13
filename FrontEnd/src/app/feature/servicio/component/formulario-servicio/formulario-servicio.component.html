@@ -27,6 +27,9 @@
           <small *ngIf="componentForm.get('codigo')?.hasError('duplicado')" class="fp-error">
             <img src="/assets/svg/required.svg" alt="" class="fp-erricon" /> Ya existe un servicio con ese código.
           </small>
+          <small *ngIf="componentForm.get('codigo')?.hasError('pattern')" class="fp-error">
+            <img src="/assets/svg/required.svg" alt="" class="fp-erricon" /> Solo se permiten números en el código.
+          </small>
         </div>
       </label>
 

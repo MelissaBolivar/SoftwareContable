@@ -1,0 +1,204 @@
+/* 🌌 Money Guardian — Estilo Corporativo Premium con Tipografía Blanca Refinada */
+.inventory-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0b1121 0%, #0a0f1d 80%);
+  padding: 2rem;
+  color: #ffffff; /* Texto base blanco global */
+  font-family: 'Poppins', sans-serif;
+}
+
+.money-table {
+  --bg-dark: #0b1121;
+  --bg-light: #16223b;
+  --bg-gradient: linear-gradient(145deg, #0b1121 0%, #111b2e 60%, #0e1931 100%);
+  --text-light: #ffffff; /* Blanco puro para máxima visibilidad */
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --border-color: rgba(255, 255, 255, 0.15);
+  --hover-bg: rgba(56, 189, 248, 0.12);
+
+  background: var(--bg-gradient);
+  color: var(--text-light);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 10px 40px rgba(14, 165, 233, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  width: 90%;
+  max-width: 1200px;
+  animation: fadeIn 1s ease forwards;
+}
+
+.money-table:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 45px rgba(14, 165, 233, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Encabezado ---------- */
+.table-header {
+  background: linear-gradient(90deg, #0ea5e9 0%, #2563eb 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 1.3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.table-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.18);
+  transform: skewX(-25deg);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50% { left: 120%; }
+  100% { left: 120%; }
+}
+
+.table-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.6px;
+  margin: 0;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+/* ---------- Encabezados de columnas ---------- */
+.money-table th {
+  background: linear-gradient(180deg, #141e30 0%, #0b1121 100%);
+  color: #e2e8f0; /* Blanco suave */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  padding: 1rem 0.75rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.money-table th:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #60a5fa;
+}
+
+/* ---------- Filas y celdas ---------- */
+.money-table td {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-light);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1rem;
+  transition: background 0.35s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.money-table tr {
+  transition: 0.35s all ease;
+}
+
+.money-table tr:hover td {
+  background: var(--hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+  color: #ffffff;
+}
+
+/* ---------- Animación ---------- */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Paginador ---------- */
+.p-paginator {
+  background: var(--bg-light) !important;
+  border-top: 1px solid var(--border-color);
+  color: #ffffff;
+  padding: 1rem !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.p-paginator .p-paginator-page {
+  color: #ffffff;
+  border-radius: 0.6rem;
+  transition: all 0.3s ease;
+}
+
+.p-paginator .p-paginator-page:hover {
+  background: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.p-paginator .p-paginator-page.p-highlight {
+  background: var(--accent-strong) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.35);
+}
+
+/* ---------- Scrollbar ---------- */
+.money-table::-webkit-scrollbar {
+  height: 8px;
+}
+
+.money-table::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--accent), #3b82f6);
+  border-radius: 10px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .table-title {
+    font-size: 1.2rem;
+  }
+
+  .money-table th,
+  .money-table td {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+}
+/* 🌌 Money Guardian — Texto optimizado para máxima legibilidad */
+.money-table td {
+  text-align: center;
+  padding: 1rem;
+  color: #ffffff; /* Blanco puro */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.25); /* ✨ brillo sutil para resaltar */
+  transition: background 0.35s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+/* Filas normales más visibles */
+.money-table tr {
+  background-color: rgba(255, 255, 255, 0.02); /* contraste suave */
+  transition: all 0.35s ease;
+}
+
+/* Hover destacado */
+.money-table tr:hover td {
+  background: rgba(56, 189, 248, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 25px rgba(56, 189, 248, 0.12);
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+

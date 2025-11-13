@@ -99,6 +99,13 @@ namespace Contable.Api.Controllers
             if (actualizarServicio == null)
                 return NotFound(new { mensaje = $"No se encontró el servicio con Id = {servicio.ServicioId}" });
 
+            // 🔹 Validación: no permitir código repetido, sin importar si el otro está activo o no
+            var existe = await _context.Servicio
+                .AnyAsync(s => s.Codigo == servicio.Codigo && s.ServicioId != servicio.ServicioId);
+
+            if (existe)
+                return Conflict(new { mensaje = "Ya existe un servicio con ese código" });
+
             actualizarServicio.Codigo = servicio.Codigo;
             actualizarServicio.Nombre = servicio.Nombre;
 
@@ -107,6 +114,7 @@ namespace Contable.Api.Controllers
 
             return Ok(servicio);
         }
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteServicio(int id)

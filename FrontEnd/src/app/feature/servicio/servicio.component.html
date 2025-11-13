@@ -2,259 +2,253 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Servicios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Money Guardian - Servicios</title>
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
+
   <style>
-    :root { --accent: #147016; --fg: #123a12; }
+    :root {
+      --primary: #008cff;
+      --accent: #00b8ff;
+      --danger: #ff4d4d;
+      --success: #00d084;
+      --text-color: #f0f6ff;
+      --text-muted: #9fb7d1;
+      --card-bg: #0c1b2f;
+      --card-hover: #132b47;
+      --table-row-bg: #11253f;
+      --table-row-hover: #1c3a61;
+      --shadow: 0 0 25px rgba(0, 140, 255, 0.08);
+      --scrollbar-thumb: #00b8ff;
+      --scrollbar-track: #0a1728;
+      --radius: 14px;
+    }
 
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #fff8d6 0%, #fff9e6 100%);
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: var(--fg);
-      position: relative;
+      font-family: "Poppins", "Segoe UI", sans-serif;
+      background: #081425;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .servicio-wrapper, .servicio-container {
-      position: relative;
-      z-index: 5;
-      background: transparent;
-    }
-
     .servicio-container {
-      background: linear-gradient(180deg, #ffffff, #fbfdfb);
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 18px 40px rgba(20,112,22,0.04);
-      border: 1px solid rgba(20,112,22,0.08);
-      max-width: 1100px;
-      margin: 2.2rem auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 90%;
+      max-width: 1050px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      transition: all 0.3s ease;
+      max-height: 75vh;
+      overflow-y: auto;
     }
 
-    .emoji-decor {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: visible;
+    .servicio-container:hover { background: var(--card-hover); }
+
+    .servicio-container::-webkit-scrollbar { width: 8px; }
+    .servicio-container::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+    .servicio-container::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+      gap: 1rem;
     }
 
-    .emoji {
-      position: fixed;
-      font-size: 44px;
-      opacity: 0.18;
-      transition: transform .28s ease, opacity .28s ease;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.05));
-      pointer-events: none;
-      will-change: transform, opacity;
-      animation: floatSubtle 8s ease-in-out infinite;
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--primary);
+      font-size: 1.3rem;
+      font-weight: 700;
     }
 
-    @keyframes floatSubtle {
-      0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(2deg); }
-      100% { transform: translateY(0) rotate(0deg); }
+    .header-title i { color: var(--accent); font-size: 1.4rem; }
+
+    .search-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex: 1;
+      max-width: 340px;
     }
 
-    @media (max-width: 900px) { .emoji { display: none; } }
+    .search-input {
+      flex: 1;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 184, 255, 0.25);
+      background: #132a4a;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 10px rgba(0, 184, 255, 0.3);
+    }
 
-    .header-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
-    .header-actions { display:flex; align-items:center; justify-content:space-between; width:100%; flex-wrap:wrap; gap:1rem; }
-    .search-group { display:flex; align-items:center; gap:.5rem; flex:1; }
-    .action-group { display:flex; align-items:center; gap:.75rem; }
-    .search-input { min-width:220px; padding:.5rem .75rem; border-radius:6px; border:1px solid rgba(0,0,0,.08); }
-    .panel-animated.collapsed { display:none; }
-    .divider { border:none; border-top:1px solid rgba(0,0,0,.06); margin:1rem 0; }
-    .empty-msg { color:rgba(0,0,0,.5); text-align:center; padding:1rem 0; }
-    .row-hover:hover { background: rgba(20,112,22,0.02); }
-    .col-id { width:4rem; text-align:left; }
-    .cell-name { font-weight:600; color: rgba(0,0,0,.85); }
-    .fixed-height-table { max-height:48vh; overflow:auto; }
+    .panel-animated { transition: max-height 0.4s ease, padding 0.3s ease; overflow: hidden; }
+    .collapsed { max-height: 0 !important; padding: 0 !important; }
+
+    .icon-btn {
+      width: 2rem;
+      height: 2rem;
+      padding: 0.25rem !important;
+      font-size: 0.9rem;
+      border-radius: 50% !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    table.centered-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+    table.centered-table th {
+      background: rgba(0, 184, 255, 0.08);
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.6rem;
+      border-bottom: 2px solid rgba(0, 184, 255, 0.2);
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      backdrop-filter: blur(3px);
+      cursor: pointer;
+    }
+    table.centered-table th:hover {
+      background: rgba(0, 184, 255, 0.15);
+      transition: background 0.3s ease;
+    }
+    table.centered-table td {
+      color: var(--text-color);
+      padding: 0.55rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      white-space: nowrap;
+    }
+    table.centered-table tbody tr:hover { background: var(--table-row-hover); transform: translateY(-1px); }
+
+    .cell-name { font-weight: 500; }
+
+    .inactive { color: var(--text-muted); }
+
+    @media (max-width: 900px) {
+      .servicio-container { max-height: 70vh; padding: 1rem; }
+      .header-title { font-size: 1.05rem; }
+    }
   </style>
 </head>
 <body>
-  <div class="emoji-decor" aria-hidden="true">
-    <div class="emoji" style="left:1.5%; top:1.5%;">🧾</div>
-    <div class="emoji" style="left:6%; top:1.2%;">➕</div>
-    <div class="emoji" style="left:11%; top:1.6%;">➖</div>
-    <div class="emoji" style="left:36%; top:1.4%;">📈</div>
-    <div class="emoji" style="left:41%; top:1.9%;">🖩</div>
-    <div class="emoji" style="left:46%; top:1.2%;">🧾</div>
-    <div class="emoji" style="left:51%; top:1.6%;">➕</div>
-    <div class="emoji" style="left:56%; top:1.3%;">➖</div>
-    <div class="emoji" style="left:76%; top:1.5%;">📈</div>
-    <div class="emoji" style="left:81%; top:1.8%;">🧾</div>
-    <div class="emoji" style="left:86%; top:1.3%;">➕</div>
-    <div class="emoji" style="left:91%; top:1.7%;">➖</div>
-    <div class="emoji" style="left:95%; top:1.2%;">🧮</div>
-  </div>
-
-  <div class="servicio-wrapper">
-    <div class="servicio-container">
-      <div class="servicios-header header-row">
-        <h3 class="p-mt-4 header-title">Servicios Activos</h3>
-        <div class="header-actions">
-          <div class="search-group">
-            <p-button icon="pi pi-search" styleClass="p-button p-component btn-animated btn-icon" (click)="focusBusqueda()" aria-label="Activar búsqueda"></p-button>
-            <input #searchInput type="text" placeholder="Buscar por nombre o código" [(ngModel)]="nombreFiltro" (input)="filtrarServicios()" class="p-inputtext search-input" />
-          </div>
-          <div class="action-group">
-            <p-button label="Nuevo servicio" severity="success" styleClass="p-button p-component btn-animated btn-primary" (click)="new()" (keydown.enter)="new()"></p-button>
-            <p-button icon="pi pi-chevron-down" styleClass="p-button p-component btn-animated btn-toggle" (click)="toggleActive = !toggleActive" [attr.aria-expanded]="toggleActive"></p-button>
-          </div>
-        </div>
+  <div class="servicio-container">
+    <!-- Servicios Activos -->
+    <div class="header-row">
+      <h3 class="header-title"><i class="pi pi-briefcase"></i> Servicios Activos</h3>
+      <div class="search-group">
+        <input #searchInput type="text" placeholder="Buscar por nombre o código"
+               [(ngModel)]="nombreFiltro" (input)="filtrarServicios()"
+               class="search-input" />
+        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
+                  (click)="focusBusqueda()"></p-button>
       </div>
-
-      <div class="panel-animated" [ngClass]="{ collapsed: !toggleActive }">
-        <p-table
-          [value]="infoTable"
-          dataKey="servicioId"
-          [rows]="rowsActive"
-          [rowsPerPageOptions]="[5, 10, 15]"
-          [loading]="loading"
-          [paginator]="true"
-          class="fixed-height-table centered-table lively-table"
-          [rowHover]="true"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th class="col-id" pSortableColumn="servicioId">Id</th>
-              <th pSortableColumn="codigo">Código</th>
-              <th pSortableColumn="nombre">Nombre</th>
-              <th>Acciones</th>
-              <th>Acciones</th>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="body" let-item>
-            <tr class="row-hover animated-row" [attr.data-id]="item.servicioId">
-              <td class="col-id">{{ item.servicioId }}</td>
-              <td>{{ item.codigo }}</td>
-              <td class="cell-name">{{ item.nombre }}</td>
-              <td>
-                <p-button label="Editar" [text]="true" severity="info" type="button" styleClass="p-button p-component btn-animated btn-small" (click)="edit(item, $event)" (keydown.enter)="edit(item, $event)"></p-button>
-              </td>
-              <td>
-                <p-button
-                  label="Desactivar"
-                  [text]="true"
-                  severity="warning"
-                  type="button"
-                  styleClass="p-button p-component btn-animated btn-small"
-                  (click)="confirmDesactivar(item.servicioId, item.nombre)"
-                  (keydown.enter)="confirmDesactivar(item.servicioId, item.nombre)"
-                ></p-button>
-              </td>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="5" class="empty-msg">No se encontró información.</td>
-            </tr>
-          </ng-template>
-        </p-table>
+      <div class="action-group">
+        <p-button icon="pi pi-plus" styleClass="p-button-rounded p-button-text icon-btn p-button-success"
+                  (click)="new()"></p-button>
+        <p-button icon="pi pi-chevron-down" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
+                  (click)="toggleActive = !toggleActive"
+                  [attr.aria-expanded]="toggleActive"></p-button>
       </div>
-
-      <hr class="divider" />
-
-      <div class="servicios-header header-row" style="display: flex; align-items: center; justify-content: space-between;">
-        <h3 class="p-mt-4 header-title inactive">Servicios Inactivos</h3>
-        <p-button icon="pi pi-chevron-down" styleClass="p-button p-component btn-animated btn-toggle"
-          (click)="toggleInactive = !toggleInactive"
-          [attr.aria-expanded]="toggleInactive"
-          aria-label="Mostrar u ocultar servicios inactivos">
-        </p-button>
-      </div>
-
-      <div class="panel-animated inactive-panel" [ngClass]="{ collapsed: !toggleInactive }">
-        <p-table
-          [value]="serviciosDesactivados"
-          dataKey="servicioId"
-          [paginator]="true"
-          [rows]="rowsInactive"
-          [rowsPerPageOptions]="[5, 10, 15]"
-          [loading]="false"
-          class="fixed-height-table centered-table lively-table"
-          [rowHover]="true"
-        >
-          <ng-template pTemplate="header">
-            <tr>
-              <th class="col-id">Id</th>
-              <th pSortableColumn="codigo">Código</th>
-              <th pSortableColumn="nombre">Nombre</th>
-              <th>Acciones</th>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="body" let-s>
-            <tr class="row-hover disabled-row animated-row" [attr.data-id]="s.servicioId">
-              <td class="col-id">{{ s.servicioId }}</td>
-              <td>{{ s.codigo }}</td>
-              <td class="cell-name">{{ s.nombre }}</td>
-              <td>
-                <p-button
-                  label="Reactivar"
-                  [text]="true"
-                  severity="success"
-                  type="button"
-                  styleClass="p-button p-component btn-animated btn-small"
-                  (click)="confirmReactivar(s.servicioId, s.nombre)"
-                  (keydown.enter)="confirmReactivar(s.servicioId, s.nombre)"
-                ></p-button>
-              </td>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="5" class="empty-msg">No hay servicios desactivados.</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-
-      <p-confirmDialog></p-confirmDialog>
     </div>
-  </div>
 
-  <div class="emoji-decor" aria-hidden="true">
-    <div class="emoji" style="left:4%; top:36%;">📈</div>
-    <div class="emoji" style="left:13%; top:48%;">➖</div>
-    <div class="emoji" style="left:16%; top:52%;">🧮</div>
-    <div class="emoji" style="left:84%; top:36%;">🪙</div>
-    <div class="emoji" style="left:93%; top:48%;">🧾</div>
-    <div class="emoji" style="left:93%; top:52%;">➕</div>
-    <div class="emoji" style="left:24%; top:6%;">🪙</div>
-    <div class="emoji" style="left:36%; top:6%;">📈</div>
-    <div class="emoji" style="left:64%; top:6%;">📊</div>
-    <div class="emoji" style="left:76%; top:6%;">🖩</div>
-    <div class="emoji" style="left:18%; top:12%;">➖</div>
-    <div class="emoji" style="left:82%; top:12%;">➕</div>
-    <div class="emoji" style="left:3%; top:58%;">🪙</div>
-    <div class="emoji" style="left:6%; top:62%;">📈</div>
-    <div class="emoji" style="left:9%; top:66%;">🧾</div>
-    <div class="emoji" style="left:12%; top:70%;">➕</div>
-    <div class="emoji" style="left:15%; top:74%;">➖</div>
-    <div class="emoji" style="left:85%; top:58%;">🧮</div>
-    <div class="emoji" style="left:94%; top:70%;">🧾</div>
-    <div class="emoji" style="left:94%; top:74%;">➕</div>
-    <div class="emoji" style="left:6%; top:88%;">🪙</div>
-    <div class="emoji" style="left:84%; top:90%;">🪙</div>
-    <div class="emoji" style="left:90%; top:86%;">📊</div>
-    <div class="emoji" style="left:94%; top:92%;">🧾</div>
-    <div class="emoji" style="left:50%; top:4%;">➖</div>
+    <div class="panel-animated" [ngClass]="{ collapsed: !toggleActive }">
+      <p-table [value]="infoTable" dataKey="servicioId" [paginator]="true" [rows]="10"
+               [rowsPerPageOptions]="[5,10]" [loading]="loading"
+               class="centered-table" [rowHover]="true" sortMode="multiple">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-infoComponent>
+          <tr>
+            <td>{{ infoComponent.codigo }}</td>
+            <td class="cell-name">{{ infoComponent.nombre }}</td>
+            <td>
+              <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
+                        (click)="edit(infoComponent, $event)"></p-button>
+              <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-text icon-btn p-button-warning"
+                        (click)="confirmDesactivar(infoComponent.servicioId, infoComponent.nombre)"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="3" class="empty-msg">No se encontró información.</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Servicios Inactivos -->
+    <div class="header-row">
+      <h3 class="header-title inactive"><i class="pi pi-folder"></i> Servicios Inactivos</h3>
+      <div class="action-group">
+        <p-button icon="pi pi-chevron-down" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
+                  (click)="toggleInactive = !toggleInactive"
+                  [attr.aria-expanded]="toggleInactive"></p-button>
+      </div>
+    </div>
+
+    <div class="panel-animated" [ngClass]="{ collapsed: !toggleInactive }">
+      <p-table [value]="serviciosDesactivados" dataKey="servicioId"
+               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10]"
+               class="centered-table" [rowHover]="true" sortMode="multiple">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="codigo">Código <p-sortIcon field="codigo"></p-sortIcon></th>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-serv>
+          <tr>
+            <td>{{ serv.codigo }}</td>
+            <td class="cell-name">{{ serv.nombre }}</td>
+            <td>
+              <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text icon-btn p-button-success"
+                        (click)="confirmReactivar(serv.servicioId, serv.nombre)"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="3" class="empty-msg">No hay servicios desactivados.</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-confirmDialog></p-confirmDialog>
   </div>
 </body>
 </html>

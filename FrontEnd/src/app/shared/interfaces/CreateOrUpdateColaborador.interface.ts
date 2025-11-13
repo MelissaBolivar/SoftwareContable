@@ -1,5 +1,5 @@
 export interface CreateOrUpdateColaborador{
-    TerceroId?:string;
+       TerceroId?:number | null;
     TipoDocId: string;
     NumeroDoc: string;
     RazonSocialTercero: string;

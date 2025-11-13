@@ -13,12 +13,11 @@ tipoDocId: string;
 tipoDeTerceroId: string;
 numeroDoc: string;
 razonSocialTercero: string;
-direccionTercero: string; 
+direccionTercero?: string; 
 telefonoTercero: string; 
 correoElectronicoTercero: string; 
 fechaRegistro: string; 
-estado: string; 
+estado?: boolean;
 ventas: string; 
 tipoDeIdentificacion: string;
 }
-

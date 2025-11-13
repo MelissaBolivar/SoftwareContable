@@ -1,34 +1,25 @@
-<form [formGroup]="componentForm" (ngSubmit)="guardar()" class="p-fluid p-formgrid p-grid">
+<form [formGroup]="componentForm" (ngSubmit)="guardar()" class="mg-form">
   <!-- Número de Factura -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="numeroFactura">Número de Factura*</label>
-    <input
-      type="text"
-      pInputText
-      formControlName="numeroFactura"
-      id="numeroFactura"
-      placeholder="Número"
-      class="w-full"
-    />
+    <input type="text" pInputText formControlName="numeroFactura" id="numeroFactura" placeholder="Número" />
   </div>
 
   <!-- Fecha -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="fecha">Fecha*</label>
-    <div style="max-width: 220px;">
-      <p-calendar
-        formControlName="fecha"
-        id="fecha"
-        dateFormat="dd MM yy"
-        showIcon="true"
-        [locale]="customLocale"
-        styleClass="p-inputtext w-full"
-      ></p-calendar>
-    </div>
+    <p-calendar
+      formControlName="fecha"
+      id="fecha"
+      dateFormat="dd MM yy"
+      showIcon="true"
+      [locale]="customLocale"
+      styleClass="w-full"
+    ></p-calendar>
   </div>
 
   <!-- Proveedor -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="terceroId">Proveedor*</label>
     <p-dropdown
       [options]="tercero"
@@ -37,12 +28,11 @@
       formControlName="terceroId"
       placeholder="Selecciona un Proveedor"
       id="terceroId"
-      class="w-full"
     ></p-dropdown>
   </div>
 
   <!-- Tipo de Pago -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="tipoPagoId">Tipo de Pago*</label>
     <p-dropdown
       [options]="tipoPago"
@@ -51,12 +41,11 @@
       formControlName="tipoPagoId"
       placeholder="Selecciona tipo de pago"
       id="tipoPagoId"
-      class="w-full"
     ></p-dropdown>
   </div>
 
   <!-- Tipo de Factura -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="tipoFacturaId">Tipo de Factura*</label>
     <p-dropdown
       [options]="tipoFactura"
@@ -65,12 +54,11 @@
       formControlName="tipoFacturaId"
       placeholder="Selecciona tipo de factura"
       id="tipoFacturaId"
-      class="w-full"
     ></p-dropdown>
   </div>
 
   <!-- Anticipo -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="anticipoId">Anticipo*</label>
     <p-dropdown
       [options]="anticipo"
@@ -79,14 +67,13 @@
       formControlName="anticipoId"
       placeholder="Selecciona anticipo"
       id="anticipoId"
-      class="w-full"
     ></p-dropdown>
   </div>
 
   <!-- Productos -->
-  <div formArrayName="detalleProducto" class="p-col-12">
-    <div *ngFor="let grupo of detalleProducto.controls; let i = index" [formGroupName]="i" class="p-field-container">
-      <div class="p-field">
+  <div formArrayName="detalleProducto" class="mg-section">
+    <div *ngFor="let grupo of detalleProducto.controls; let i = index" [formGroupName]="i" class="mg-row">
+      <div class="mg-field">
         <label [attr.for]="'productoId-' + i">Producto*</label>
         <p-dropdown
           [options]="producto"
@@ -98,57 +85,39 @@
         ></p-dropdown>
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label [attr.for]="'unidades-' + i">Unidades*</label>
-        <input
-          type="number"
-          pInputText
-          formControlName="unidades"
-          [id]="'unidades-' + i"
-          placeholder="Unidades"
-        />
+        <input type="number" pInputText formControlName="unidades" [id]="'unidades-' + i" placeholder="Unidades" />
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label [attr.for]="'precio-' + i">Precio*</label>
-        <input
-          type="number"
-          pInputText
-          formControlName="precio"
-          [id]="'precio-' + i"
-          placeholder="Precio"
-        />
+        <input type="number" pInputText formControlName="precio" [id]="'precio-' + i" placeholder="Precio" />
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label>Total</label>
-        <input
-          type="number"
-          pInputText
-          [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value"
-          disabled
-        />
+        <input type="number" pInputText [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value" disabled />
       </div>
     </div>
 
-    <div class="p-field-buttons p-mt-2">
+    <div class="mg-actions">
       <button
         type="button"
         pButton
         label="Agregar"
         icon="pi pi-plus"
         (click)="agregarProducto()"
-        class="custom-background p-button-sm ml-auto"
-        style="width: auto; padding: 0.25rem 0.75rem;"
+        class="mg-btn-add"
         [disabled]="action === 'ver'"
       ></button>
     </div>
   </div>
 
   <!-- Servicios -->
-  <div formArrayName="detalleServicio" class="p-col-12">
-    <div *ngFor="let grupo of detalleServicio.controls; let i = index" [formGroupName]="i" class="p-field-container">
-      <div class="p-field">
+  <div formArrayName="detalleServicio" class="mg-section">
+    <div *ngFor="let grupo of detalleServicio.controls; let i = index" [formGroupName]="i" class="mg-row">
+      <div class="mg-field">
         <label [attr.for]="'servicioId-' + i">Servicio*</label>
         <p-dropdown
           [options]="servicio"
@@ -160,55 +129,37 @@
         ></p-dropdown>
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label [attr.for]="'unidades-serv-' + i">Unidades*</label>
-        <input
-          type="number"
-          pInputText
-          formControlName="unidades"
-          [id]="'unidades-serv-' + i"
-          placeholder="Unidades"
-        />
+        <input type="number" pInputText formControlName="unidades" [id]="'unidades-serv-' + i" placeholder="Unidades" />
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label [attr.for]="'precio-serv-' + i">Precio*</label>
-        <input
-          type="number"
-          pInputText
-          formControlName="precio"
-          [id]="'precio-serv-' + i"
-          placeholder="Precio"
-        />
+        <input type="number" pInputText formControlName="precio" [id]="'precio-serv-' + i" placeholder="Precio" />
       </div>
 
-      <div class="p-field">
+      <div class="mg-field">
         <label>Total</label>
-        <input
-          type="number"
-          pInputText
-          [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value"
-          disabled
-        />
+        <input type="number" pInputText [value]="grupo.get('unidades')?.value * grupo.get('precio')?.value" disabled />
       </div>
     </div>
 
-    <div class="p-field-buttons p-mt-2">
+    <div class="mg-actions">
       <button
         type="button"
         pButton
         label="Agregar"
         icon="pi pi-plus"
         (click)="agregarServicio()"
-        class="custom-background p-button-sm ml-auto"
-        style="width: auto; padding: 0.25rem 0.75rem;"
+        class="mg-btn-add"
         [disabled]="action === 'ver'"
       ></button>
     </div>
   </div>
 
   <!-- Observaciones -->
-  <div class="p-field p-col-12">
+  <div class="mg-field w-full">
     <label for="observaciones">Observaciones*</label>
     <textarea
       pInputTextarea
@@ -216,34 +167,24 @@
       id="observaciones"
       rows="3"
       placeholder="Observaciones"
-      class="w-full"
     ></textarea>
   </div>
 
   <!-- Total general -->
-  <div class="p-field p-col-12 p-md-4">
+  <div class="mg-field">
     <label for="total">Total</label>
-    <input
-      type="number"
-      pInputText
-      formControlName="total"
-      id="total"
-      [disabled]="true"
-      class="w-full"
-    />
+    <input type="number" pInputText formControlName="total" id="total" [disabled]="true" />
   </div>
 
   <!-- Botón de Guardar -->
-  <div class="p-field-buttons p-col-12 p-mt-3">
+  <div class="mg-actions">
     <button
       type="submit"
       pButton
       label="Guardar"
       icon="pi pi-save"
       [disabled]="componentForm.invalid || loading || action === 'ver'"
-      class="custom-background p-button-sm ml-auto"
-      style="width: auto; padding: 0.25rem 1rem;"
+      class="mg-btn-save"
     ></button>
   </div>
 </form>
-

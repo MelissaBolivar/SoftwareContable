@@ -1,0 +1,228 @@
+<div class="inventory-wrapper fade-in">
+  <p-table
+    #dt1
+    [value]="infoTable"
+    dataKey="id"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10]"
+    [loading]="loading"
+    [paginator]="true"
+    class="money-table fixed-height-table"
+    [globalFilterFields]="['codigo', 'nombre']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        <h2 class="table-title glow-text">📦 Inventario de Productos</h2>
+
+        <!-- 🔍 FILTRO DE BÚSQUEDA -->
+        <div class="search-container">
+          <input
+            type="text"
+            pInputText
+            placeholder="Buscar por código o producto..."
+            (input)="onGlobalFilter($event, dt1)"
+            class="search-input"
+          />
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="th-min-width" pSortableColumn="codigo">Código</th>
+        <th class="th-min-width" pSortableColumn="nombre">Producto</th>
+        <th class="th-min-width" pSortableColumn="unidades">Unidades</th>
+        <th class="th-min-width" pSortableColumn="precioCompra">Precio de Compra</th>
+        <th class="th-min-width" pSortableColumn="precioVenta">Precio de Venta</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-infoComponent>
+      <tr>
+        <td>{{ infoComponent.codigo }}</td>
+        <td>{{ infoComponent.nombre }}</td>
+        <td>{{ infoComponent.unidades }}</td>
+        <td>{{ infoComponent.precioCompra }}</td>
+        <td>{{ infoComponent.precioVenta }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<style>
+  /* 🌌 Fondo centrado estilo Money Guardian */
+  .inventory-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #0f172a, #020617);
+    padding: 2rem;
+  }
+
+  /* ✨ Contenedor principal */
+  .money-table {
+    --bg-dark: #0f172a;
+    --bg-light: #1e293b;
+    --text-light: #f8fafc;
+    --accent: #38bdf8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    color: var(--text-light);
+    border-radius: 1.25rem;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.15),
+      inset 0 0 15px rgba(56, 189, 248, 0.05);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    width: 85%;
+    max-width: 950px;
+    transition: all 0.4s ease;
+  }
+
+  .money-table:hover {
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.25),
+      inset 0 0 20px rgba(56, 189, 248, 0.1);
+    transform: scale(1.004);
+  }
+
+  /* 🩵 Encabezado con brillo */
+  .table-header {
+    background: linear-gradient(90deg, #0ea5e9, #2563eb);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    position: relative;
+  }
+
+  .table-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    opacity: 0.7;
+  }
+
+  .table-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+  }
+
+  /* 🔍 Buscador */
+  .search-container {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 0.6rem 1rem;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+  }
+
+  .search-input::placeholder {
+    color: #cbd5e1;
+  }
+
+  .search-input:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+  }
+
+  /* 📑 Encabezado de columnas */
+  .money-table th {
+    background: rgba(30, 41, 59, 0.95);
+    color: #93c5fd;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .money-table th:hover {
+    background: rgba(56, 189, 248, 0.08);
+    color: #60a5fa;
+  }
+
+  /* 💠 Celdas de contenido */
+  .money-table td {
+    text-align: center;
+    padding: 0.95rem;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+  }
+
+  .money-table tr:hover td {
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  /* 🔘 Paginador elegante */
+  .p-paginator {
+    background: var(--bg-light) !important;
+    border-top: 1px solid var(--border-color);
+    font-family: 'Poppins', sans-serif;
+    padding: 0.5rem;
+  }
+
+  .p-paginator .p-paginator-page {
+    color: var(--text-light);
+    border-radius: 8px;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+  }
+
+  .p-paginator .p-paginator-page:hover {
+    background: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+  }
+
+  .p-paginator .p-paginator-page.p-highlight {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: #fff !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  }
+
+  /* 🌠 Animación de aparición */
+  .fade-in {
+    animation: fadeIn 0.9s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

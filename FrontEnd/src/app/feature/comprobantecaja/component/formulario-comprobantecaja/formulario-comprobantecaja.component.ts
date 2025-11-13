@@ -142,7 +142,7 @@ export class FormularioComprobantecajaComponent implements OnInit, AfterViewInit
         observaciones: this.config.data.observaciones,
         total: this.config.data.total
       });
-      debugger;
+      
       if (this.config.data.detalleProducto?.length) {
         const productosForm = this.config.data.detalleProducto.map((item: any) =>
           this.fb.group({
@@ -235,7 +235,7 @@ export class FormularioComprobantecajaComponent implements OnInit, AfterViewInit
     this.componentForm.get('total')?.setValue(total, { emitEvent: false });
   }
 
-  guardar(): void {debugger;
+  guardar(): void {
     if (!this.componentForm.valid) { return; }
 
     // Logs de verificación para depuración
@@ -258,7 +258,7 @@ export class FormularioComprobantecajaComponent implements OnInit, AfterViewInit
 */
     this.loading = true;
     const formData = raw;
-    debugger;
+    
     const payload: CreateOrUpdateComprobanteCaja = {
       ...(this.action === 'Actualizar' && { FacturaId: Number(this.id) }),
       Fecha: formData.fecha,
