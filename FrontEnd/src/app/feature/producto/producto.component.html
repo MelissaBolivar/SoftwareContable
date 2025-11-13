@@ -1,277 +1,403 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Money Guardian - Productos</title>
+<!-- 💎 Money Guardian - Módulo de Productos -->
+<div class="productos-wrapper fade-in">
+  <div class="productos-panel">
+    <!-- 🔷 Encabezado principal -->
+    <header class="productos-header">
+      <span class="productos-icon">📦</span>
+      <h2 class="productos-title">Gestión de Productos</h2>
+    </header>
 
-  <!-- Fuente moderna -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
+    <!-- 🔍 Barra de búsqueda -->
+    <div class="productos-filtro">
+      <input
+        #searchInput
+        type="text"
+        placeholder="Buscar por nombre o código..."
+        [(ngModel)]="nombreFiltro"
+        (input)="filtrarProductos()"
+        class="search-input"
+      />
+      <button
+        pButton
+        type="button"
+        icon="pi pi-search"
+        class="p-button-rounded p-button-info search-btn"
+      ></button>
+    </div>
 
-  <style>
-    :root {
-      --primary: #008cff;
-      --accent: #00b8ff;
-      --danger: #ff4d4d;
-      --success: #00d084;
-      --text-color: #f0f6ff;
-      --text-muted: #9fb7d1;
-      --card-bg: #0c1b2f;
-      --card-hover: #132b47;
-      --table-row-bg: #11253f;
-      --table-row-hover: #1c3a61;
-      --shadow: 0 0 25px rgba(0, 140, 255, 0.08);
-      --scrollbar-thumb: #00b8ff;
-      --scrollbar-track: #0a1728;
-      --radius: 14px;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Poppins", "Segoe UI", sans-serif;
-      background: #081425;
-      color: var(--text-color);
-      font-size: 0.9rem;
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .producto-container {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      width: 90%;
-      max-width: 1050px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      transition: all 0.3s ease;
-      max-height: 75vh;
-      overflow-y: auto;
-    }
-
-    .producto-container:hover { background: var(--card-hover); }
-
-    .producto-container::-webkit-scrollbar { width: 8px; }
-    .producto-container::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
-    .producto-container::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-
-    .header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-bottom: 1.2rem;
-      gap: 1rem;
-    }
-
-    .header-title {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--primary);
-      font-size: 1.3rem;
-      font-weight: 700;
-    }
-
-    .header-title i { color: var(--accent); font-size: 1.4rem; }
-
-    .search-group {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex: 1;
-      max-width: 340px;
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 0.45rem 0.9rem;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 184, 255, 0.25);
-      background: #132a4a;
-      color: var(--text-color);
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-    }
-    .search-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 10px rgba(0, 184, 255, 0.3);
-    }
-
-    .panel-animated { transition: max-height 0.4s ease, padding 0.3s ease; overflow: hidden; }
-    .collapsed { max-height: 0 !important; padding: 0 !important; }
-
-    .icon-btn {
-      width: 2rem;
-      height: 2rem;
-      padding: 0.25rem !important;
-      font-size: 0.9rem;
-      border-radius: 50% !important;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    table.centered-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-      font-size: 0.88rem;
-    }
-
-    table.centered-table th {
-      background: rgba(0, 184, 255, 0.08);
-      color: var(--accent);
-      font-weight: 600;
-      text-transform: uppercase;
-      padding: 0.6rem;
-      border-bottom: 2px solid rgba(0, 184, 255, 0.2);
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      backdrop-filter: blur(3px);
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.2s ease;
-    }
-
-    table.centered-table th:hover {
-      background: rgba(0, 184, 255, 0.15);
-    }
-
-    table.centered-table td {
-      color: var(--text-color);
-      padding: 0.55rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      white-space: nowrap;
-    }
-
-    table.centered-table tbody tr:hover {
-      background: var(--table-row-hover);
-      transform: translateY(-1px);
-    }
-
-    .cell-name { font-weight: 500; }
-    .inactive { color: var(--text-muted); }
-
-    @media (max-width: 900px) {
-      .producto-container { max-height: 70vh; padding: 1rem; }
-      .header-title { font-size: 1.05rem; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="producto-container">
-    <!-- Productos Activos -->
-    <div class="header-row">
-      <h3 class="header-title"><i class="pi pi-box"></i> Productos Activos</h3>
-      <div class="search-group">
-        <input #searchInput type="text" placeholder="Buscar por nombre o código"
-               [(ngModel)]="nombreFiltro" (input)="filtrarProductos()"
-               class="search-input" />
-        <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
-                  (click)="focusBusqueda()"></p-button>
+    <!-- 📘 Tabla de productos activos -->
+    <section class="productos-section">
+      <div class="section-header">
+        <h3 class="section-title glow-text">
+          <i class="pi pi-box"></i> Productos Activos
+        </h3>
+        <div class="section-actions">
+          <button
+            pButton
+            icon="pi pi-plus"
+            class="p-button-rounded p-button-success icon-btn"
+            (click)="new()"
+          ></button>
+          <button
+            pButton
+            icon="pi pi-chevron-down"
+            class="p-button-rounded p-button-info icon-btn"
+            (click)="toggleActive = !toggleActive"
+            [attr.aria-expanded]="toggleActive"
+          ></button>
+        </div>
       </div>
-      <div class="action-group">
-        <p-button icon="pi pi-plus" styleClass="p-button-rounded p-button-text icon-btn p-button-success"
-                  (click)="new()"></p-button>
-        <p-button icon="pi pi-chevron-down" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
-                  (click)="toggleActive = !toggleActive"
-                  [attr.aria-expanded]="toggleActive"></p-button>
+
+      <div class="panel-animated" [ngClass]="{ collapsed: !toggleActive }">
+        <p-table
+          [value]="infoTable"
+          dataKey="productoId"
+          [paginator]="true"
+          [rows]="8"
+          [rowsPerPageOptions]="[5, 10]"
+          [loading]="loading"
+          [rowHover]="true"
+          sortMode="multiple"
+          class="money-table"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="codigo">
+                Código <p-sortIcon field="codigo"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombre">
+                Nombre <p-sortIcon field="nombre"></p-sortIcon>
+              </th>
+              <th>Acciones</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-infoComponent>
+            <tr>
+              <td>{{ infoComponent.codigo }}</td>
+              <td>{{ infoComponent.nombre }}</td>
+              <td>
+                <button
+                  pButton
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-text p-button-info icon-btn"
+                  (click)="edit(infoComponent, $event)"
+                ></button>
+                <button
+                  pButton
+                  icon="pi pi-times"
+                  class="p-button-rounded p-button-text p-button-warning icon-btn"
+                  (click)="confirmDesactivar(infoComponent.productoId, infoComponent.nombre)"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="3">No se encontró información.</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-    </div>
+    </section>
 
-    <div class="panel-animated" [ngClass]="{ collapsed: !toggleActive }">
-      <p-table [value]="infoTable" dataKey="productoId"
-               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10]"
-               [loading]="loading" [rowHover]="true"
-               sortMode="multiple" class="centered-table">
-
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="codigo">
-              Código <p-sortIcon field="codigo"></p-sortIcon>
-            </th>
-            <th pSortableColumn="nombre">
-              Nombre <p-sortIcon field="nombre"></p-sortIcon>
-            </th>
-            <th>Acciones</th>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-infoComponent>
-          <tr>
-            <td>{{ infoComponent.codigo }}</td>
-            <td class="cell-name">{{ infoComponent.nombre }}</td>
-            <td>
-              <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
-                        (click)="edit(infoComponent, $event)"></p-button>
-              <p-button icon="pi pi-times" styleClass="p-button-rounded p-button-text icon-btn p-button-warning"
-                        (click)="confirmDesactivar(infoComponent.productoId, infoComponent.nombre)"></p-button>
-            </td>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="emptymessage">
-          <tr><td colspan="4" class="empty-msg">No se encontró información.</td></tr>
-        </ng-template>
-      </p-table>
-    </div>
-
-    <hr class="divider" />
-
-    <!-- Productos Inactivos -->
-    <div class="header-row">
-      <h3 class="header-title inactive"><i class="pi pi-folder"></i> Productos Inactivos</h3>
-      <div class="action-group">
-        <p-button icon="pi pi-chevron-down" styleClass="p-button-rounded p-button-text icon-btn p-button-info"
-                  (click)="toggleInactive = !toggleInactive"
-                  [attr.aria-expanded]="toggleInactive"></p-button>
+    <!-- 💤 Productos inactivos -->
+    <section class="productos-section inactive-section">
+      <div class="section-header">
+        <h3 class="section-title inactive glow-text">
+          <i class="pi pi-folder"></i> Productos Inactivos
+        </h3>
+        <button
+          pButton
+          icon="pi pi-chevron-down"
+          class="p-button-rounded p-button-info icon-btn"
+          (click)="toggleInactive = !toggleInactive"
+          [attr.aria-expanded]="toggleInactive"
+        ></button>
       </div>
-    </div>
 
-    <div class="panel-animated" [ngClass]="{ collapsed: !toggleInactive }">
-      <p-table [value]="productosDesactivados" dataKey="productoId"
-               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10]"
-               class="centered-table" [rowHover]="true" sortMode="multiple">
+      <div class="panel-animated" [ngClass]="{ collapsed: !toggleInactive }">
+        <p-table
+          [value]="productosDesactivados"
+          dataKey="productoId"
+          [paginator]="true"
+          [rows]="8"
+          [rowsPerPageOptions]="[5, 10]"
+          class="money-table"
+          [rowHover]="true"
+          sortMode="multiple"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="codigo">
+                Código <p-sortIcon field="codigo"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombre">
+                Nombre <p-sortIcon field="nombre"></p-sortIcon>
+              </th>
+              <th>Acciones</th>
+            </tr>
+          </ng-template>
 
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="codigo">
-              Código <p-sortIcon field="codigo"></p-sortIcon>
-            </th>
-            <th pSortableColumn="nombre">
-              Nombre <p-sortIcon field="nombre"></p-sortIcon>
-            </th>
-            <th>Acciones</th>
-          </tr>
-        </ng-template>
+          <ng-template pTemplate="body" let-prod>
+            <tr>
+              <td>{{ prod.codigo }}</td>
+              <td>{{ prod.nombre }}</td>
+              <td>
+                <button
+                  pButton
+                  icon="pi pi-check"
+                  class="p-button-rounded p-button-text p-button-success icon-btn"
+                  (click)="confirmReactivar(prod.productoId, prod.nombre)"
+                ></button>
+              </td>
+            </tr>
+          </ng-template>
 
-        <ng-template pTemplate="body" let-prod>
-          <tr>
-            <td>{{ prod.codigo }}</td>
-            <td class="cell-name">{{ prod.nombre }}</td>
-            <td>
-              <p-button icon="pi pi-check" styleClass="p-button-rounded p-button-text icon-btn p-button-success"
-                        (click)="confirmReactivar(prod.productoId, prod.nombre)"></p-button>
-            </td>
-          </tr>
-        </ng-template>
-
-        <ng-template pTemplate="emptymessage">
-          <tr><td colspan="4" class="empty-msg">No hay productos desactivados.</td></tr>
-        </ng-template>
-      </p-table>
-    </div>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="3">No hay productos desactivados.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </section>
 
     <p-confirmDialog></p-confirmDialog>
   </div>
-</body>
-</html>
+</div>
+
+<!-- 🎨 ESTILOS -->
+<style>
+  .productos-wrapper {
+    background: radial-gradient(circle at top left, #0f172a, #020617);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    font-family: "Poppins", sans-serif;
+    color: #e2e8f0;
+    overflow-y: auto; /* permite desplazamiento vertical de la página */
+  }
+
+  /* mantengo panel scrollable para listas largas - visual solamente */
+  .productos-panel {
+    width: 90%;
+    max-width: 1000px;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 0 25px rgba(56, 189, 248, 0.15),
+      inset 0 0 15px rgba(56, 189, 248, 0.05);
+    padding: 2rem;
+    transition: all 0.4s ease;
+    max-height: 80vh;       /* limita altura y permite scroll interno */
+    overflow-y: auto;      /* scroll interno para la lista sin romper layout */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56,189,248,0.6) transparent;
+  }
+
+  .productos-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    color: #38bdf8;
+  }
+
+  .productos-icon {
+    font-size: 1.8rem;
+  }
+
+  .productos-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+  }
+
+  .productos-filtro {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    background: linear-gradient(180deg, #0f2438, #132a4a); /* más contraste en campo */
+    color: #f1f9ff; /* texto más claro para que se vea */
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .search-input::placeholder {
+    color: rgba(226, 232, 240, 0.6);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+  }
+
+  .search-btn {
+    padding: 0.5rem;
+  }
+
+  .productos-section {
+    margin-bottom: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #60a5fa;
+    margin: 0;
+  }
+
+  .section-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .inactive {
+    color: #9aa6b6 !important; /* tono claro para el label inactivo */
+  }
+
+  .icon-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* TABLA: mantengo estructura y comportamiento idénticos */
+  .money-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+  }
+
+  .money-table th {
+    background: linear-gradient(180deg, rgba(24,30,44,0.98), rgba(30,41,59,0.95));
+    color: #bfe8ff; /* cabezera más clara */
+    padding: 0.9rem;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  /* Filas: contraste fuerte para que el contenido se vea (corrección de "amarillo" que no se veía) */
+  .money-table td {
+    padding: 0.8rem;
+    color: #e9f8ff;
+    background: rgba(15, 23, 36, 0.85); /* fondo oscuro y semi-opaco */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  /* filas alternadas para mejorar lectura */
+  .money-table tr:nth-child(even) td {
+    background: rgba(18, 28, 46, 0.88);
+  }
+
+  /* hover claro y consistente */
+  .money-table tr:hover td {
+    background: linear-gradient(90deg, rgba(56,189,248,0.08), rgba(56,189,248,0.06));
+    color: #f8feff;
+  }
+
+  /* Aseguro que productos inactivos usen el mismo esquema visual (solo ligeramente apagado) */
+  .inactive-section .money-table th {
+    background: linear-gradient(180deg, rgba(20,26,38,0.98), rgba(28,38,52,0.95));
+    color: #9fb7d1;
+  }
+
+  .inactive-section .money-table td {
+    background: rgba(14, 18, 28, 0.82);
+    color: #d8e6ef;
+  }
+
+  .inactive-section .money-table tr:nth-child(even) td {
+    background: rgba(16, 22, 34, 0.86);
+  }
+
+  .inactive-section .money-table tr:hover td {
+    background: linear-gradient(90deg, rgba(56,189,248,0.06), rgba(56,189,248,0.04));
+  }
+
+  /* panel-animated conserva overflow hidden para animación, no cambia funcionalidad */
+  .panel-animated {
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    overflow: hidden;
+  }
+
+  .collapsed {
+    max-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.9s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsivo: mismas clases que tenías, sólo ajustes visuales */
+  @media (max-width: 900px) {
+    .productos-panel {
+      padding: 1.2rem;
+      max-height: 85vh;
+    }
+
+    .search-input {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .productos-title {
+      font-size: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+    }
+
+    .money-table th,
+    .money-table td {
+      padding: 0.55rem;
+      font-size: 0.86rem;
+    }
+  }
+</style>

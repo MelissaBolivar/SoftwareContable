@@ -1,242 +1,118 @@
-/* ==========================================================================
-   💎 Money Guardian | Estilo Corporativo - Módulo Productos (Adaptado al de Clientes)
+/* ========================================================================== 
+   💎 Money Guardian | Estilo WOW-Tech para p-confirmDialog 
+   Última versión con botón “No” rojo y toque futurista
    ========================================================================== */
 
-/* -------------------- 🎨 Tokens globales -------------------- */
-:root {
-  --primary: #008cff;
-  --accent: #00b8ff;
-  --danger: #ff4d4d;
-  --success: #00d084;
-  --text-color: #f0f6ff;
-  --text-muted: #9fb7d1;
-  --card-bg: #0c1b2f;
-  --card-hover: #132b47;
-  --table-row-bg: #11253f;
-  --table-row-hover: #1c3a61;
-  --shadow: 0 0 25px rgba(0, 140, 255, 0.08);
-  --scrollbar-thumb: #00b8ff;
-  --scrollbar-track: #0a1728;
-  --radius: 14px;
-}
-
-/* -------------------- 🌐 Fondo general -------------------- */
-body {
-  background: #081425;
-  color: var(--text-color);
-  font-family: "Poppins", "Segoe UI", sans-serif;
-  margin: 0;
-  font-size: 0.9rem;
-  overflow-x: hidden;
-}
-
-/* -------------------- 📦 Contenedor principal -------------------- */
-.producto-wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 1.5rem 1rem;
-}
-
-.producto-container {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  width: 80%; /* un poco más pequeño que antes */
-  max-width: 900px; /* reducido */
-  padding: 1.3rem; /* ajustado */
-  transition: all 0.3s ease;
-  max-height: 65vh; /* altura más contenida */
-  overflow-y: auto;
-}
-
-.producto-container:hover {
-  background: var(--card-hover);
-}
-
-/* 🔹 Scrollbar personalizado */
-.producto-container::-webkit-scrollbar {
-  width: 8px;
-}
-.producto-container::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 10px;
-}
-.producto-container::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-/* -------------------- 🏷️ Encabezado -------------------- */
-.header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.header-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--primary);
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.header-title i {
-  color: var(--accent);
-  font-size: 1.3rem;
-}
-
-.header-actions .p-button {
-  background: var(--primary) !important;
-  color: #ffffff !important;
-  border: none !important;
-  font-weight: 500 !important;
-  border-radius: 6px !important;
-  font-size: 0.85rem !important;
-  padding: 0.35rem 0.65rem !important;
-  box-shadow: 0 0 8px rgba(0, 140, 255, 0.2);
-  transition: all 0.25s ease;
-}
-
-.header-actions .p-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 15px rgba(0, 140, 255, 0.35);
-}
-
-/* -------------------- 🔍 Buscador -------------------- */
-.search-input {
-  width: 40%;
-  background: #132a4a;
-  border: 1px solid rgba(0, 184, 255, 0.25);
-  border-radius: 8px;
-  color: var(--text-color);
-  padding: 0.45rem 0.75rem;
-  transition: all 0.25s ease;
-  font-size: 0.88rem;
-}
-
-.search-input:focus {
-  outline: none;
-  box-shadow: 0 0 8px rgba(0, 184, 255, 0.25);
-  border-color: var(--accent);
-}
-
-/* -------------------- 📊 Tabla de productos -------------------- */
-:host ::ng-deep .centered-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.8rem;
-  font-size: 0.87rem;
-}
-
-:host ::ng-deep .centered-table thead th {
-  background: rgba(0, 184, 255, 0.08);
-  color: var(--accent);
-  font-weight: 600;
-  text-transform: uppercase;
-  padding: 0.55rem;
-  border-bottom: 2px solid rgba(0, 184, 255, 0.2);
+/* -------------------- 🌌 Contenedor principal del diálogo -------------------- */
+:host ::ng-deep .p-confirm-dialog {
+  background: linear-gradient(145deg, rgba(15, 30, 60, 0.97), rgba(25, 45, 85, 0.97)) !important;
+  color: #f0f6ff !important;
+  padding: 1.8rem !important;
+  border-radius: 1rem !important;
+  border: 1px solid rgba(0, 184, 255, 0.45);
+  box-shadow: 0 0 50px rgba(0, 140, 255, 0.3), 0 0 80px rgba(0, 208, 132, 0.2) inset;
+  animation: dialogFadeIn 0.35s ease forwards;
   text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  backdrop-filter: blur(3px);
+  position: relative;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
 }
 
-:host ::ng-deep .centered-table tbody tr {
-  background: var(--table-row-bg);
-  transition: 0.25s ease;
+/* -------------------- ✨ Animación de entrada -------------------- */
+@keyframes dialogFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-:host ::ng-deep .centered-table tbody tr:hover {
-  background: var(--table-row-hover);
-  transform: translateY(-1px);
+/* -------------------- 💫 Glow animado alrededor -------------------- */
+:host ::ng-deep .p-confirm-dialog::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border-radius: 1rem;
+  border: 2px solid rgba(0, 184, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 184, 255, 0.5), 0 0 35px rgba(0, 208, 132, 0.25);
+  animation: glowPulse 2.5s infinite alternate;
+  pointer-events: none;
 }
 
-:host ::ng-deep .centered-table td {
-  color: var(--text-color);
-  padding: 0.5rem;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  white-space: nowrap;
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 15px rgba(0,184,255,0.4), 0 0 25px rgba(0,208,132,0.2); }
+  50% { box-shadow: 0 0 25px rgba(0,184,255,0.6), 0 0 40px rgba(0,208,132,0.3); }
+  100% { box-shadow: 0 0 15px rgba(0,184,255,0.4), 0 0 25px rgba(0,208,132,0.2); }
 }
 
-/* -------------------- 🧠 Botones de acción -------------------- */
-.action-btn {
-  border: none;
-  border-radius: 6px;
-  padding: 0.25rem 0.5rem; /* más pequeño */
-  margin: 0 2px;
-  font-size: 0.78rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
+/* -------------------- 📝 Contenido del mensaje -------------------- */
+:host ::ng-deep .p-confirm-dialog .p-dialog-content {
+  font-size: 0.95rem;
+  color: #f0f6ff !important;
+  background: rgba(20, 40, 70, 0.25);
+  padding: 1rem 1.3rem;
+  border-radius: 0.8rem;
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
   font-weight: 500;
+  text-shadow: 0 0 5px rgba(0, 184, 255, 0.4);
 }
 
-.action-btn.edit {
-  background: rgba(0, 184, 255, 0.12);
+/* Nombre del producto/servicio destacado */
+:host ::ng-deep .p-confirm-dialog .p-dialog-content strong {
   color: var(--accent);
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 184, 255, 0.6);
 }
 
-.action-btn.edit:hover {
-  background: rgba(0, 184, 255, 0.25);
-  transform: scale(1.05);
+/* -------------------- 🎛️ Botones -------------------- */
+:host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button {
+  border-radius: 8px !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.45rem 1rem !important;
+  box-shadow: 0 0 12px rgba(0, 140, 255, 0.2);
+  transition: all 0.25s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  text-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
-.action-btn.delete {
-  background: rgba(255, 77, 77, 0.12);
-  color: var(--danger);
+/* Hover general de botones */
+:host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 0 20px rgba(0, 184, 255, 0.5), 0 0 35px rgba(0, 208, 132, 0.3);
 }
 
-.action-btn.delete:hover {
-  background: rgba(255, 77, 77, 0.25);
-  transform: scale(1.05);
+/* Botón Aceptar (Sí) */
+:host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button-success {
+  background: linear-gradient(90deg, #00d084, #00b894) !important;
+  color: #fff !important;
+  border: none !important;
+  text-shadow: 0 0 4px rgba(0, 208, 132, 0.6);
 }
 
-.action-btn.activate {
-  background: rgba(0, 208, 132, 0.12);
-  color: var(--success);
+/* Botón Cancelar (No) con rojo tech futurista */
+:host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button-danger {
+  background: linear-gradient(90deg, #ff5c5c, #ff4d4d) !important;
+  color: #fff !important;
+  border: none !important;
+  text-shadow: 0 0 5px rgba(255, 77, 77, 0.7);
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
 }
 
-.action-btn.activate:hover {
-  background: rgba(0, 208, 132, 0.25);
-  transform: scale(1.05);
+:host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button-danger:hover {
+  transform: translateY(-2px) scale(1.07);
+  box-shadow: 0 0 25px rgba(255, 77, 77, 0.7), 0 0 45px rgba(255, 120, 120, 0.4);
 }
 
-/* -------------------- 📱 Responsivo -------------------- */
-@media (max-width: 900px) {
-  .search-input {
-    width: 100%;
-    margin-top: 0.6rem;
-  }
-
-  .header-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-
-  .producto-container {
-    max-height: 60vh;
-    width: 95%;
-  }
-}
-
+/* -------------------- 🔧 Responsivo -------------------- */
 @media (max-width: 640px) {
-  :host ::ng-deep .centered-table th,
-  :host ::ng-deep .centered-table td {
-    font-size: 0.78rem;
-    padding: 0.4rem;
+  :host ::ng-deep .p-confirm-dialog {
+    padding: 1.2rem !important;
   }
 
-  .header-title {
-    font-size: 1rem;
+  :host ::ng-deep .p-confirm-dialog .p-dialog-content {
+    font-size: 0.85rem;
+  }
+
+  :host ::ng-deep .p-confirm-dialog .p-confirm-dialog-footer .p-button {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.9rem !important;
   }
 }
-
-/* -------------------- 💡 Nota Angular -------------------- */
-/* En tu <p-table>, configura [rowsPerPageOptions]="[5,10]" para permitir elegir entre 5 y 10 productos por página */
