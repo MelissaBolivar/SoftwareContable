@@ -71,7 +71,7 @@ export class inventarioComponent implements OnInit {
         this.infoTable = Array.from(inventario.values()).map(v => ({
           inventarioId: Number(v.inventarioId),
           producto: String(v.producto),
-          unidades: Math.max(0, Number(v.unidades)),
+          unidades: Number(v.unidades),
           precioCompra: Number(v.precioCompra ?? 0),
           precioVenta: Number(v.precioVenta ?? 0),
           nombre: String(v.nombre),

@@ -94,7 +94,12 @@ export class FormularioComprobantecajaComponent implements OnInit, AfterViewInit
     this.headerName = this.config.data?.name || '';
 
     this.ProveedorService.getList().subscribe((data: Proveedor[]) => {
-      this.tercero = data.map(c => ({ terceroId: c.terceroId, nombre: c.razonSocialTercero }));
+      this.tercero = data
+        .filter(x => x.activo === true)  // filtras aquí
+        .map(c => ({
+          terceroId: c.terceroId,
+          nombre: c.razonSocialTercero
+        }));
     });
 
     this.service.getProducto().subscribe(data => {

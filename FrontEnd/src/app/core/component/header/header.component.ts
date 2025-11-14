@@ -70,8 +70,8 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Facturas',
         items: [
-          { label: 'Facturas de Venta', routerLink: ['/facturasventa'], command: () => this.navigateTo('/facturasventa') },
           { label: 'Facturas de Compra', routerLink: ['/facturascompra'], command: () => this.navigateTo('/facturascompra') },
+          { label: 'Facturas de Venta', routerLink: ['/facturasventa'], command: () => this.navigateTo('/facturasventa') },       
           { label: 'Comprobante de Caja', routerLink: ['/comprobantecaja'], command: () => this.navigateTo('/comprobantecaja') }
         ]
       },

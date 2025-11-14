@@ -20,4 +20,5 @@ fechaRegistro: string;
 estado?: boolean;
 ventas: string; 
 tipoDeIdentificacion: string;
+activo: boolean;
 }

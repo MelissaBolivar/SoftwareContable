@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Software\\SoftwareContable\\Back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\facturacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\facturacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|c:\\software\\softwarecontable\\back\\contable.infraestructura\\context\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|solutionrelative:contable.infraestructura\\context\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "PersistenceContext.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Infraestructura\\Context\\PersistenceContext.cs",
+              "RelativeDocumentMoniker": "Contable.Infraestructura\\Context\\PersistenceContext.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Infraestructura\\Context\\PersistenceContext.cs",
+              "RelativeToolTip": "Contable.Infraestructura\\Context\\PersistenceContext.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T01:09:55.669Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FacturaController.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\FacturaController.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Controllers\\FacturaController.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\FacturaController.cs",
+              "RelativeToolTip": "Contable.Api\\Controllers\\FacturaController.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAAwIYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T01:08:26.622Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "CajaController.cs",
               "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
               "RelativeDocumentMoniker": "Contable.Api\\Controllers\\CajaController.cs",
               "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
               "RelativeToolTip": "Contable.Api\\Controllers\\CajaController.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAkwA0AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAkwA0AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T23:32:00.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T23:32:00.962Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "TerceroController.cs",
               "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\TerceroController.cs",
               "RelativeDocumentMoniker": "Contable.Api\\Controllers\\TerceroController.cs",
               "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\TerceroController.cs",
               "RelativeToolTip": "Contable.Api\\Controllers\\TerceroController.cs",
-              "ViewState": "AgIAAKcAAAAAAAAAAADwv7gAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAYwCoAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T23:18:30.547Z"
+              "WhenOpened": "2025-11-12T23:18:30.547Z",
+              "EditorCaption": ""
             }
           ]
         }

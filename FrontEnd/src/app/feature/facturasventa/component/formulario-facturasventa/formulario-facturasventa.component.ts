@@ -94,7 +94,12 @@ export class FormularioFacturasVentaComponent implements OnInit, AfterViewInit {
     this.headerName = this.config.data?.name || '';
 
     this.clienteService.getList().subscribe((data: Cliente[]) => {
-      this.tercero = data.map(c => ({ terceroId: c.terceroId, nombre: c.razonSocialTercero }));
+      this.tercero = data
+          .filter(x => x.activo === true)  // filtras aquí
+          .map(c => ({
+            terceroId: c.terceroId,
+            nombre: c.razonSocialTercero
+          }));
     });
 
     this.service.getProducto().subscribe(data => {
