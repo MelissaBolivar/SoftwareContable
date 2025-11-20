@@ -195,6 +195,22 @@ namespace Contable.Api.Controllers
                             };
 
                             _context.Inventario.Add(inventario);
+
+                            var ultimoRegistroCaja = _context.Caja.OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            decimal saldo = ultimoRegistroCaja == null ? 0 : ultimoRegistroCaja.Saldo;
+
+                            saldo = saldo - item.Precio;
+
+                            var caja = new Caja
+                            {
+                                Saldo = saldo,
+                                FechaRegistro = DateTime.Now,
+                                Activo = true,
+                                Concepto = "Factura de Compra"
+
+                            };
+
+                            _context.Caja.Add(caja);
                         }
                         if (factura.TipoFacturaId == 2)//venta
                         {
@@ -215,6 +231,39 @@ namespace Contable.Api.Controllers
                             };
 
                             _context.Inventario.Add(inventario);
+
+                            var ultimoRegistroCaja = _context.Caja.OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            decimal saldo = ultimoRegistroCaja == null ? 0 : ultimoRegistroCaja.Saldo;
+
+                            saldo = saldo + item.Precio;
+
+                            var caja = new Caja
+                            {
+                                Saldo = saldo,
+                                FechaRegistro = DateTime.Now,
+                                Activo = true,
+                                Concepto = "Factura de Venta"
+
+                            };
+
+                            _context.Caja.Add(caja);
+                        }
+                        if (factura.TipoFacturaId == 3)
+                        {
+                            var ultimoRegistroCaja = _context.Caja.OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            decimal saldo = ultimoRegistroCaja == null ? 0 : ultimoRegistroCaja.Saldo;
+
+                            saldo = saldo + item.Precio;
+
+                            var caja = new Caja
+                            {
+                                Saldo = saldo,
+                                FechaRegistro = DateTime.Now,
+                                Activo = true,
+                                Concepto = "Comprobante de Caja"
+                            };
+
+                            _context.Caja.Add(caja);
                         }
                     }
                 }
@@ -231,6 +280,24 @@ namespace Contable.Api.Controllers
                             PrecioUnitario = item.Precio
                         };
                         _context.DetalleServicio.Add(detalle);
+
+                        if (factura.TipoFacturaId == 3)
+                        {
+                            var ultimoRegistroCaja = _context.Caja.OrderByDescending(x => x.FechaRegistro).FirstOrDefault();
+                            decimal saldo = ultimoRegistroCaja == null ? 0 : ultimoRegistroCaja.Saldo;
+
+                            saldo = saldo + item.Precio;
+
+                            var caja = new Caja
+                            {
+                                Saldo = saldo,
+                                FechaRegistro = DateTime.Now,
+                                Activo = true,
+                                Concepto = "Comprobante de Caja"
+                            };
+
+                            _context.Caja.Add(caja);
+                        }
                     }
                 }
 

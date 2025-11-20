@@ -25,11 +25,17 @@ namespace Contable.Api.Controllers
         // 🔹 GET: api/ Caja
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Caja>>> GetCaja()
+        public async Task<ActionResult<IEnumerable<object>>> GetCaja()
         {
-            var caja = await _context.Caja.ToListAsync();
-            return Ok(caja);
+            // 1️⃣ Traemos los últimos registros de inventario por producto
+            var ultimosRegistroCaja = await _context.Caja
+                .Where(x => x.Activo)
+                .OrderByDescending(x => x.FechaRegistro)                
+                .ToListAsync(); // ✅ aquí usamos ToListAsync, await funciona            
+
+            return Ok(ultimosRegistroCaja);
         }
+
 
 
 

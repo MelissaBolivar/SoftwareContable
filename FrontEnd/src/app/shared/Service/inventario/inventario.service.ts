@@ -3,7 +3,7 @@ import { HttpService } from '../http-service/http.service';
 import { FieldFilter } from '../../interfaces/FieldFilter.interface';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Inventario } from '../../interfaces/inventario.interface';
+import { Caja, Inventario } from '../../interfaces/inventario.interface';
 import { CreateOrUpdateInventario } from '../../interfaces/CreateOrUpdateInventario.interface';
 
 @Injectable()
@@ -21,6 +21,11 @@ constructor(private readonly httpService: HttpService) { }
     const idTipoTercero=1;     
     return this.httpService.doGet(
       `${environment.endpoint_api_Inventario}`,
+    );
+  }
+  public getListCaja(): Observable<Caja[]> {  
+    return this.httpService.doGet(
+      `${environment.endpoint_api_Caja}`,
     );
   }
 

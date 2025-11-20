@@ -115,12 +115,25 @@ namespace Contable.Infrastructure.Context
                 .HasForeignKey(ds => ds.FacturaId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //  Aquí defines la precisión del decimal
+                modelBuilder.Entity<DetalleProducto>()
+                .Property(dp => dp.PrecioUnitario)
+                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Caja>()
+                .Property(dp => dp.Saldo)
+                 .HasPrecision(18, 2);
+
+
             modelBuilder.Entity<DetalleServicio>()
                 .HasOne(ds => ds.Servicio)
                 .WithMany() // ✅ sin navegación inversa en Servicio.cs
                 .HasForeignKey(ds => ds.ServicioId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<DetalleServicio>()
+               .Property(dp => dp.PrecioUnitario)
+                .HasPrecision(18, 2);
             #endregion
 
             // Semilla de datos

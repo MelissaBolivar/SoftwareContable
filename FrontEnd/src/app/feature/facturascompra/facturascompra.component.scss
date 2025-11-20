@@ -1,7 +1,7 @@
 /* Tokens y variables */
 :root {
-  --accent: #147016;
-  --light-accent: #1ea446;
+  --accent: #1e46a4;
+  --light-accent: #1e46a4;
   --container-bg: #ffffff;
   --shadow: rgba(20, 112, 22, 0.04);
   --bg-start: #f9fafb;
@@ -209,7 +209,7 @@ button:focus, .p-button:focus { outline:none; box-shadow: 0 0 0 4px rgba-accent(
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td .obs-text:empty { display:inline-block; opacity:0.5; font-style:italic; }
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr:focus-within,
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr:focus {
-  outline: 3px solid rgba(20,112,22,0.08);
+  outline: 3px solid #0526deda;
   outline-offset: 4px;
   box-shadow: 0 20px 44px rgba(20,112,22,0.06);
 }

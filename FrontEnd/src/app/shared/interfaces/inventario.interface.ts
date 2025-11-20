@@ -9,3 +9,9 @@ nombre: string;
 codigo: string;
 }
 
+export interface Caja{
+    fechaRegistro: string;
+    concepto: string;
+    saldo: number; 
+}
+

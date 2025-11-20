@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Contable.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eacf75fd710e219dbfcd62ad7fdb41ecb77679db")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64516ce60896e57b2e832594505684d534b5c13c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Contable.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Contable.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

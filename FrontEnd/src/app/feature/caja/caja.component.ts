@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
 import { InventarioService } from '../../shared/Service/inventario/inventario.service';
 import { FacturasCompraService } from '../../shared/Service/facturascompra/facturascompra.service';
 import { FacturasVentaService } from '../../shared/Service/facturasventa/facturasventa.service';
-import { Inventario } from '../../shared/interfaces/inventario.interface';
+import { Caja, Inventario } from '../../shared/interfaces/inventario.interface';
 
 @Component({
   selector: 'app-caja',
@@ -32,7 +32,7 @@ import { Inventario } from '../../shared/interfaces/inventario.interface';
   styleUrl: './caja.component.scss'
 })
 export class CajaComponent implements OnInit {
-  infoTable: Inventario[] = [];
+  infoTable: Caja[] = [];
   loading = true;
 
   constructor(
@@ -62,18 +62,14 @@ export class CajaComponent implements OnInit {
     this.loading = true;
 
     forkJoin({
-      inventario: this.CajaService.getList()
+      caja: this.CajaService.getListCaja()
     }).subscribe({
-      next: ({ inventario }) => {
+      next: ({ caja }) => {
         // convertir a array con el shape que espera la interfaz Inventario y evitar negativos
-        this.infoTable = Array.from(inventario.values()).map(v => ({
-          inventarioId: Number(v.inventarioId),
-          producto: String(v.producto),
-          unidades: Math.max(0, Number(v.unidades)),
-          precioCompra: Number(v.precioCompra ?? 0),
-          precioVenta: Number(v.precioVenta ?? 0),
-          nombre: String(v.nombre),
-          codigo: String(v.codigo)
+        this.infoTable = Array.from(caja.values()).map(v => ({
+          saldo: Number(v.saldo) < 0 ? 0 : Number(v.saldo),          
+          fechaRegistro: String(v.fechaRegistro),
+          concepto: String(v.concepto)
         }));
 
         this.loading = false;

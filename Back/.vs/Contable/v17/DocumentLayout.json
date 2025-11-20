@@ -7,16 +7,36 @@
       "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\facturacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|c:\\software\\softwarecontable\\back\\contable.infraestructura\\context\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{05CFA5E9-B376-4319-B5A7-E014EB44CB9E}|Contable.Infraestructura\\Contable.Infrastructure.csproj|solutionrelative:contable.infraestructura\\context\\persistencecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\cajacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entities\\caja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entities\\caja.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|c:\\software\\softwarecontable\\back\\contable.dominio\\entities\\detalleproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB8C69CB-3D4E-4FA9-85C7-B6A40BCD58E2}|Contable.Dominio\\Contable.Domain.csproj|solutionrelative:contable.dominio\\entities\\detalleproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{058A190B-4AA0-464E-80E8-8E6219DEEB36}|Contable.Aplicacion\\Contable.Application.csproj|c:\\software\\softwarecontable\\back\\contable.aplicacion\\dtos\\caja\\updatecajadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{058A190B-4AA0-464E-80E8-8E6219DEEB36}|Contable.Aplicacion\\Contable.Application.csproj|solutionrelative:contable.aplicacion\\dtos\\caja\\updatecajadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{058A190B-4AA0-464E-80E8-8E6219DEEB36}|Contable.Aplicacion\\Contable.Application.csproj|c:\\software\\softwarecontable\\back\\contable.aplicacion\\dtos\\caja\\createcajadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{058A190B-4AA0-464E-80E8-8E6219DEEB36}|Contable.Aplicacion\\Contable.Application.csproj|solutionrelative:contable.aplicacion\\dtos\\caja\\createcajadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\inventariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\inventariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|c:\\software\\softwarecontable\\back\\contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1D68AEC-E688-4278-90DC-A00164ACA5A9}|Contable.Api\\Contable.Api.csproj|solutionrelative:contable.api\\controllers\\tercerocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,8 +46,73 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DetalleProducto.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entities\\DetalleProducto.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entities\\DetalleProducto.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entities\\DetalleProducto.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entities\\DetalleProducto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAowBAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T01:14:07.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UpdateCajaDto.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Dtos\\Caja\\UpdateCajaDto.cs",
+              "RelativeDocumentMoniker": "Contable.Aplicacion\\Dtos\\Caja\\UpdateCajaDto.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Dtos\\Caja\\UpdateCajaDto.cs",
+              "RelativeToolTip": "Contable.Aplicacion\\Dtos\\Caja\\UpdateCajaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T01:08:14.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CreateCajaDto.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Dtos\\Caja\\CreateCajaDto.cs",
+              "RelativeDocumentMoniker": "Contable.Aplicacion\\Dtos\\Caja\\CreateCajaDto.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Aplicacion\\Dtos\\Caja\\CreateCajaDto.cs",
+              "RelativeToolTip": "Contable.Aplicacion\\Dtos\\Caja\\CreateCajaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T01:08:04.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Caja.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entities\\Caja.cs",
+              "RelativeDocumentMoniker": "Contable.Dominio\\Entities\\Caja.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Dominio\\Entities\\Caja.cs",
+              "RelativeToolTip": "Contable.Dominio\\Entities\\Caja.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwAQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-19T23:57:38.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InventarioController.cs",
+              "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\InventarioController.cs",
+              "RelativeDocumentMoniker": "Contable.Api\\Controllers\\InventarioController.cs",
+              "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\InventarioController.cs",
+              "RelativeToolTip": "Contable.Api\\Controllers\\InventarioController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T00:10:19.286Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -36,9 +121,10 @@
               "RelativeDocumentMoniker": "Contable.Infraestructura\\Context\\PersistenceContext.cs",
               "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Infraestructura\\Context\\PersistenceContext.cs",
               "RelativeToolTip": "Contable.Infraestructura\\Context\\PersistenceContext.cs",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAswIkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T01:09:55.669Z"
+              "WhenOpened": "2025-11-14T01:09:55.669Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,26 +134,27 @@
               "RelativeDocumentMoniker": "Contable.Api\\Controllers\\FacturaController.cs",
               "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\FacturaController.cs",
               "RelativeToolTip": "Contable.Api\\Controllers\\FacturaController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAIBAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABsBAAAAAAAAAAArwCcBAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-14T01:08:26.622Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "CajaController.cs",
               "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
               "RelativeDocumentMoniker": "Contable.Api\\Controllers\\CajaController.cs",
               "ToolTip": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\CajaController.cs",
               "RelativeToolTip": "Contable.Api\\Controllers\\CajaController.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAkwA0AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwB4AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T23:32:00.962Z"
+              "WhenOpened": "2025-11-12T23:32:00.962Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "TerceroController.cs",
               "DocumentMoniker": "C:\\Software\\SoftwareContable\\Back\\Contable.Api\\Controllers\\TerceroController.cs",
               "RelativeDocumentMoniker": "Contable.Api\\Controllers\\TerceroController.cs",

@@ -6,7 +6,9 @@ namespace Contable.Domain.Entities
     {
         [Key]
         public int CajaId { get; set; }
-        public decimal Saldo { get; set; }                             // Campo Calculado       
+        public decimal Saldo { get; set; }
+
+        public string Concepto { get; set; }        
         public required DateTime FechaRegistro { get; set; }
         public bool Activo { get; set; }
 
